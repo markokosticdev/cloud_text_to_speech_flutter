@@ -1,5 +1,5 @@
-#Cloud Text-To-Speech
-Single interface to Google, Microsoft and Amazon Text-To-Speech.
+# Cloud Text-To-Speech
+Single interface to Google, Microsoft, and Amazon Text-To-Speech.
 Flutter implementation of: 
 - [Google Cloud Text-To-Speech API](https://cloud.google.com/text-to-speech).
 - [Microsoft Azure Cognitive Text-To-Speech API](https://azure.microsoft.com/en-us/services/cognitive-services/text-to-speech).
@@ -7,20 +7,19 @@ Flutter implementation of:
 
 
 ## Features
-- Universal implementation for all accessing all providers with one interface
+- Universal implementation for accessing all providers with one interface
 - Separate implementation for every provider so we could access every functionality
-- Normalizing ssml input per provider so we send only supported ssml elements
-- Locale names on english and native language so we could display language selector
+- Normalizing SSML input per provider so we send only supported SSML elements
+- Locale names in English and native language so we could display language selector
 - Fake name generation for Google voices that are generated randomly based on voice locale
-- Easy configurable output format (per provider), rate, and pitch 
+- Accessible configurable output format (per provider), rate, and pitch
 
 
 ## Getting Started
 
-There is two ways to use Cloud Text-To-Speech:
-- Universal: Using TtsUniversal to be able to configure TTS provider dynamically and us it
+There are two ways to use Cloud Text-To-Speech:
+- Universal: Using TtsUniversal to be able to configure the TTS provider dynamically and us it
 - Provider: Using TtsGoogle, TtsMicrosoft, TtsAmazon(soon) to get the most from provider's API
-
 
 ### Universal
 
@@ -37,7 +36,6 @@ To init configuration use:
 To change provider use:
 ```dart
     TtsUniversal.setProvider(provider: 'microsoft');
-
 ```
 
 To get the list of all voices use:
@@ -57,7 +55,7 @@ To get the list of all voices use:
       .first;
 ```
 
-To convert TTS to audio use:
+To convert TTS and get audio use:
 
 ```dart
    //Generate Audio for a text
@@ -106,7 +104,7 @@ To get the list of all voices use:
       .first;
 ```
 
-To convert TTS to audio use:
+To convert TTS and get audio use:
 
 ```dart
    //Generate Audio for a text
@@ -136,7 +134,6 @@ To init configuration use:
     subscriptionKey: "SUBSCRIPTION-KEY", 
     region: "eastus", 
     withLogs: true);
-
 ```
 
 To get the list of all voices use:
@@ -156,7 +153,7 @@ To get the list of all voices use:
       .first;
 ```
 
-To convert TTS to audio use:
+To convert TTS and get audio use:
 
 ```dart
    //Generate Audio for a text
