@@ -4,12 +4,12 @@ void main() async {
   try {
     TtsGoogle.init(apiKey: "API-KEY", withLogs: true);
 
-    // Get available voices
+    // Get voices
     final voicesResponseGoogle = await TtsGoogle.getVoices();
     final voicesGoogle = voicesResponseGoogle.voices;
 
-    //Print all available voices
-    print("$voicesGoogle");
+    //Print all voices
+    print(voicesGoogle);
 
     //Pick an English Voice
     final voiceGoogle = voicesResponseGoogle.voices

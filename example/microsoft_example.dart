@@ -5,12 +5,12 @@ void main() async {
     TtsMicrosoft.init(
         subscriptionKey: "SUBSCRIPTION-KEY", region: "eastus", withLogs: true);
 
-    // Get available voices
+    // Get voices
     final voicesResponseMicrosoft = await TtsMicrosoft.getVoices();
     final voicesMicrosoft = voicesResponseMicrosoft.voices;
 
-    //Print all available voices
-    print("$voicesMicrosoft");
+    //Print all voices
+    print(voicesMicrosoft);
 
     //Pick an English Voice
     final voiceMicrosoft = voicesResponseMicrosoft.voices

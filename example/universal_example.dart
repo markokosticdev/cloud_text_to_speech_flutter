@@ -9,12 +9,12 @@ void main() async {
             subscriptionKey: 'SUBSCRIPTION-KEY', region: 'eastus'),
         withLogs: true);
 
-    // Get available voices
+    // Get voices
     final voicesResponseUniversal = await TtsUniversal.getVoices();
     final voicesUniversal = voicesResponseUniversal.voices;
 
     //Print all available voices
-    print("$voicesUniversal");
+    print(voicesUniversal);
 
     //Pick an English Voice
     final voiceUniversal = voicesResponseUniversal.voices
@@ -31,8 +31,7 @@ void main() async {
         audioFormatMicrosoft:
             AudioOutputFormatMicrosoft.audio48Khz192kBitrateMonoMp3,
         text: textUniversal,
-        rate: 'slow',
-        // optional
+        rate: 'slow', // optional
         pitch: 'default' // optional
         );
 
@@ -50,7 +49,7 @@ void main() async {
     final voicesUniversal2 = voicesResponseUniversal2.voices;
 
     //Print all available voices
-    print("$voicesUniversal2");
+    print(voicesUniversal2);
 
     //Pick an English Voice
     final voiceUniversal2 = voicesResponseUniversal2.voices
