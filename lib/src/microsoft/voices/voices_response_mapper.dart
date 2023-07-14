@@ -1,0 +1,39 @@
+import 'dart:convert';
+
+import 'package:cloud_text_to_speech/src/common/http/base_response.dart';
+import 'package:cloud_text_to_speech/src/common/http/base_response_mapper.dart';
+import 'package:cloud_text_to_speech/src/microsoft/voices/voice_model.dart';
+import 'package:cloud_text_to_speech/src/microsoft/voices/voices_responses.dart';
+import 'package:http/http.dart' as http;
+
+class VoicesResponseMapperMicrosoft extends BaseResponseMapper {
+  @override
+  BaseResponse map(http.Response response) {
+    switch (response.statusCode) {
+      case 200:
+        {
+          final json = jsonDecode(response.body) as List<dynamic>;
+          final voices = json
+              .map((e) => VoiceMicrosoft.fromJson(e as Map<String, dynamic>))
+              .toList(growable: false);
+
+          voices.sort((a, b) => a.locale.compareTo(b.locale));
+
+          return VoicesSuccessMicrosoft(voices: voices);
+        }
+      case 400:
+        return VoicesFailedBadRequestMicrosoft(
+            reasonPhrase: response.reasonPhrase);
+      case 401:
+        return VoicesFailedUnauthorizedMicrosoft();
+      case 429:
+        return VoicesFailedTooManyRequestsMicrosoft();
+      case 502:
+        return VoicesFailedBadGateWayMicrosoft();
+      default:
+        return VoicesFailedUnkownErrorMicrosoft(
+            code: response.statusCode,
+            reason: response.reasonPhrase ?? response.body);
+    }
+  }
+}
