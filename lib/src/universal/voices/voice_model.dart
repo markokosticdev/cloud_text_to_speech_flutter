@@ -1,4 +1,4 @@
-abstract class VoiceUniversal {
+class VoiceUniversal {
   String code;
   String voiceType;
   String name;

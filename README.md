@@ -9,7 +9,7 @@ Flutter implementation of:
 ## Features
 - Universal implementation for accessing all providers with one interface
 - Separate implementation for every provider so we could access every functionality
-- Normalizing SSML input per provider so we send only supported SSML elements
+- Sanitize SSML input per provider so we send only supported SSML elements
 - Locale names in English and native language so we could display language selector
 - Fake name generation for Google voices that are generated randomly based on voice locale
 - Accessible configurable output format (per provider), rate, and pitch
@@ -63,7 +63,7 @@ To convert TTS and get audio use:
 
   TtsParamsUniversal params = TtsParamsUniversal(
       voice: voice,
-      audioFormatGoogle: AudioOutputFormatGoogle.linear16,
+      audioFormatGoogle: AudioOutputFormatGoogle.mp3,
       audioFormatMicrosoft: AudioOutputFormatMicrosoft.audio48Khz192kBitrateMonoMp3,
       text: text,
       rate: 'slow', // optional
@@ -112,7 +112,7 @@ To convert TTS and get audio use:
 
   TtsParamsGoogle params = TtsParamsGoogle(
       voice: voice,
-      audioFormat: AudioOutputFormatGoogle.linear16,
+      audioFormat: AudioOutputFormatGoogle.mp3,
       text: text,
       rate: 'slow', // optional
       pitch: 'default' // optional

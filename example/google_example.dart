@@ -23,7 +23,7 @@ void main() async {
 
     TtsParamsGoogle paramsGoogle = TtsParamsGoogle(
         voice: voiceGoogle,
-        audioFormat: AudioOutputFormatGoogle.linear16,
+        audioFormat: AudioOutputFormatGoogle.mp3,
         text: textGoogle,
         rate: 'slow',
         // optional

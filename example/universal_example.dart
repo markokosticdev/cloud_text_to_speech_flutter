@@ -27,7 +27,7 @@ void main() async {
 
     TtsParamsUniversal paramsUniversal = TtsParamsUniversal(
         voice: voiceUniversal,
-        audioFormatGoogle: AudioOutputFormatGoogle.linear16,
+        audioFormatGoogle: AudioOutputFormatGoogle.mp3,
         audioFormatMicrosoft:
             AudioOutputFormatMicrosoft.audio48Khz192kBitrateMonoMp3,
         text: textUniversal,
