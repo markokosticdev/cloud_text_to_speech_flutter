@@ -50,7 +50,7 @@ To get the list of all voices use:
 
     //Pick an English Voice
     final voice = voicesResponse.voices
-      .where((element) => element.locale.startsWith("en-"))
+      .where((element) => element.locale.code.startsWith("en-"))
       .toList(growable: false)
       .first;
 ```
@@ -99,7 +99,7 @@ To get the list of all voices use:
 
     //Pick an English Voice
     final voice = voicesResponse.voices
-      .where((element) => element.locale.startsWith("en-"))
+      .where((element) => element.locale.code.startsWith("en-"))
       .toList(growable: false)
       .first;
 ```
@@ -148,7 +148,7 @@ To get the list of all voices use:
 
     //Pick an English Voice
     final voice = voicesResponse.voices
-      .where((element) => element.locale.startsWith("en-"))
+      .where((element) => element.locale.code.startsWith("en-"))
       .toList(growable: false)
       .first;
 ```

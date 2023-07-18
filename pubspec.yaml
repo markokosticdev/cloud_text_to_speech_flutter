@@ -1,6 +1,6 @@
 name: cloud_text_to_speech
 description: Single interface to Google, Microsoft and Amazon Text-To-Speech.
-version: 1.0.5
+version: 1.1.0
 repository: https://github.com/markokosticdev/cloud_text_to_speech
 
 environment:

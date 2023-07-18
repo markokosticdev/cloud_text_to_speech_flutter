@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:cloud_text_to_speech/src/common/http/base_response.dart';
 import 'package:cloud_text_to_speech/src/common/http/base_response_mapper.dart';
+import 'package:cloud_text_to_speech/src/common/utils/helpers.dart';
 import 'package:cloud_text_to_speech/src/microsoft/voices/voice_model.dart';
 import 'package:cloud_text_to_speech/src/microsoft/voices/voices_responses.dart';
 import 'package:http/http.dart' as http;
@@ -13,11 +14,13 @@ class VoicesResponseMapperMicrosoft extends BaseResponseMapper {
       case 200:
         {
           final json = jsonDecode(response.body) as List<dynamic>;
-          final voices = json
+          var voices = json
               .map((e) => VoiceMicrosoft.fromJson(e as Map<String, dynamic>))
               .toList(growable: false);
 
-          voices.sort((a, b) => a.locale.compareTo(b.locale));
+          voices = Helpers.removeVoiceDuplicates(voices);
+
+          Helpers.sortVoices(voices);
 
           return VoicesSuccessMicrosoft(voices: voices);
         }

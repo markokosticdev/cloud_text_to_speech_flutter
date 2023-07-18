@@ -1,12 +1,12 @@
+import '../../../cloud_text_to_speech.dart';
+
 class VoiceUniversal {
   String code;
   String voiceType;
   String name;
   String nativeName;
   String gender;
-  String locale;
-  String localeName;
-  String nativeLocaleName;
+  VoiceLocale locale;
   String sampleRateHertz;
 
   VoiceUniversal({
@@ -16,8 +16,6 @@ class VoiceUniversal {
     required this.nativeName,
     required this.gender,
     required this.locale,
-    required this.localeName,
-    required this.nativeLocaleName,
     required this.sampleRateHertz,
   });
 }

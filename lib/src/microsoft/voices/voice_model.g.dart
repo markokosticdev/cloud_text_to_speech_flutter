@@ -13,10 +13,7 @@ VoiceMicrosoft _$VoiceMicrosoftFromJson(Map<String, dynamic> json) =>
       name: json['DisplayName'] as String,
       nativeName: json['LocalName'] as String,
       gender: json['Gender'] as String,
-      locale: json['Locale'] as String,
-      localeName: VoiceMicrosoft._toLocaleName(json['Locale'] as String),
-      nativeLocaleName:
-          VoiceMicrosoft._toNativeLocaleName(json['Locale'] as String),
+      locale: VoiceMicrosoft._toLocale(json['Locale'] as String),
       styleList: (json['StyleList'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),

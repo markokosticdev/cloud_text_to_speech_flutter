@@ -4,7 +4,7 @@ import 'package:cloud_text_to_speech/src/common/utils/helpers.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:locale_names/locale_names.dart';
 
-import '../../universal/voices/voice_model.dart';
+import '../../../cloud_text_to_speech.dart';
 
 part 'voice_model.g.dart';
 
@@ -18,12 +18,8 @@ class VoiceMicrosoft extends VoiceUniversal {
   String nativeName;
   @JsonKey(name: "Gender")
   String gender;
-  @JsonKey(name: "Locale", includeToJson: false)
-  String locale;
-  @JsonKey(name: "Locale", fromJson: _toLocaleName, includeToJson: false)
-  String localeName;
-  @JsonKey(name: "Locale", fromJson: _toNativeLocaleName, includeToJson: false)
-  String nativeLocaleName;
+  @JsonKey(name: "Locale", fromJson: _toLocale, includeToJson: false)
+  VoiceLocale locale;
   @JsonKey(name: "StyleList")
   List<String>? styleList;
   @JsonKey(name: "SampleRateHertz")
@@ -42,8 +38,6 @@ class VoiceMicrosoft extends VoiceUniversal {
       required this.nativeName,
       required this.gender,
       required this.locale,
-      required this.localeName,
-      required this.nativeLocaleName,
       required this.styleList,
       required this.sampleRateHertz,
       required this.status,
@@ -55,32 +49,28 @@ class VoiceMicrosoft extends VoiceUniversal {
             nativeName: nativeName,
             gender: gender,
             locale: locale,
-            localeName: localeName,
-            nativeLocaleName: nativeLocaleName,
             sampleRateHertz: sampleRateHertz);
 
   factory VoiceMicrosoft.fromJson(Map<String, dynamic> json) =>
       _$VoiceMicrosoftFromJson(json);
 
-  static String _toLocaleName(String locale) {
-    List<String> languageCountrySegments = locale.split('-');
+  static VoiceLocale _toLocale(String locale) {
+    List<String> localeSegments = locale.split('-');
 
-    Locale localeObj = Locale.fromSubtags(
-        languageCode: languageCountrySegments[0],
-        countryCode: languageCountrySegments[1]);
+    Locale localeObj = Helpers.segmentsToLocale(localeSegments);
 
-    return Helpers.formatLanguageCountry(
-        localeObj.defaultDisplayLanguage, localeObj.defaultDisplayCountry);
-  }
-
-  static String _toNativeLocaleName(String locale) {
-    List<String> languageCountrySegments = locale.split('-');
-
-    Locale localeObj = Locale.fromSubtags(
-        languageCode: languageCountrySegments[0],
-        countryCode: languageCountrySegments[1]);
-
-    return Helpers.formatLanguageCountry(
-        localeObj.nativeDisplayLanguage, localeObj.nativeDisplayCountry);
+    return VoiceLocale(
+        code: localeSegments.join('-'),
+        name: Helpers.formatLanguageCountry(
+            localeObj.defaultDisplayLanguage, localeObj.defaultDisplayCountry),
+        nativeName: Helpers.formatLanguageCountry(
+            localeObj.nativeDisplayLanguage, localeObj.nativeDisplayCountry),
+        languageCode: localeObj.languageCode,
+        languageName: localeObj.defaultDisplayLanguage,
+        nativeLanguageName: localeObj.nativeDisplayLanguage,
+        countryCode: localeObj.countryCode,
+        countryName: localeObj.defaultDisplayCountry,
+        nativeCountryName: localeObj.nativeDisplayCountry,
+        scriptCode: localeObj.scriptCode);
   }
 }

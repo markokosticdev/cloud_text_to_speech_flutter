@@ -23,17 +23,16 @@ class AudioHandlerGoogle {
           SsmlGoogle(text: params.text, rate: params.rate, pitch: params.pitch);
 
       final Map<String, dynamic> body = {
-        'input': {'ssml': ssml.sanitizedSsml.replaceAll('"', '\\"')},
+        'input': {'ssml': ssml.sanitizedSsml},
         'voice': {
           'name': params.voice.code,
-          'languageCode': params.voice.locale
+          'languageCode': params.voice.locale.code
         },
         'audioConfig': {'audioEncoding': params.audioFormat},
       };
 
       final String bodyJson = jsonEncode(body);
 
-      print(body['input']['ssml']);
       final response = await audioClient.post(Uri.parse(EndpointsGoogle.audio),
           body: bodyJson);
       final audioResponse = mapper.map(response);

@@ -1,3 +1,4 @@
+export '/src/common/locale/locale_model.dart';
 export '/src/google/audio/audio.dart';
 export '/src/google/voices/voices.dart';
 export "/src/google/tts/tts.dart";

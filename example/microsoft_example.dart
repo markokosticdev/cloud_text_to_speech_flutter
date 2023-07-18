@@ -14,7 +14,7 @@ void main() async {
 
     //Pick an English Voice
     final voiceMicrosoft = voicesResponseMicrosoft.voices
-        .where((element) => element.locale.startsWith("en-"))
+        .where((element) => element.locale.code.startsWith("en-"))
         .toList(growable: false)
         .first;
 

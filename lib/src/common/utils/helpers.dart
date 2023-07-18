@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:cloud_text_to_speech/cloud_text_to_speech.dart';
 import 'package:xml/xml.dart';
@@ -6,15 +7,30 @@ import 'package:xml/xml.dart';
 class Helpers {
   Helpers._();
 
-  static String formatLanguageCountry(String? language, String? country) {
+  static Locale segmentsToLocale(List<String> localeSegments) {
+    String? languageCode = localeSegments[0];
+    String? scriptCode = localeSegments.length == 3 ? localeSegments[1] : null;
+    String? countryCode =
+        localeSegments.length == 3 ? localeSegments[2] : localeSegments[1];
+
+    languageCode = languageCode == 'cmn' ? 'zh' : languageCode;
+
+    return Locale.fromSubtags(
+      languageCode: languageCode,
+      scriptCode: scriptCode,
+      countryCode: countryCode,
+    );
+  }
+
+  static String? formatLanguageCountry(String? language, String? country) {
     if (language == null && country == null) {
-      return '';
+      return null;
     } else if (country == null) {
-      return language ?? '';
+      return language;
     } else if (language == null) {
-      return '';
+      return null;
     } else {
-      return '$language($country)';
+      return '$language ($country)';
     }
   }
 
@@ -109,9 +125,9 @@ class Helpers {
     int nameIndex = 0;
 
     return voices.map((e) {
-      if (locale != e.locale || gender != e.gender) {
+      if (locale != e.locale.code || gender != e.gender) {
         nameIndex = 0;
-        locale = e.locale;
+        locale = e.locale.code;
         gender = e.gender;
         switch (gender.toLowerCase()) {
           case 'male':
@@ -136,5 +152,29 @@ class Helpers {
       nameIndex++;
       return e;
     }).toList(growable: false);
+  }
+
+  static List<T> removeVoiceDuplicates<T extends VoiceUniversal>(
+      List<T> voices) {
+    Set<String> uniqueCodes = {};
+
+    return voices.where((voice) {
+      final isUnique = !uniqueCodes.contains(voice.code);
+      if (isUnique) {
+        uniqueCodes.add(voice.code);
+      }
+      return isUnique;
+    }).toList();
+  }
+
+  static void sortVoices<T extends VoiceUniversal>(List<T> voices) {
+    voices.sort((a, b) {
+      int localeComparison = a.locale.code.compareTo(b.locale.code);
+      if (localeComparison != 0) {
+        return localeComparison;
+      } else {
+        return b.gender.compareTo(a.gender);
+      }
+    });
   }
 }

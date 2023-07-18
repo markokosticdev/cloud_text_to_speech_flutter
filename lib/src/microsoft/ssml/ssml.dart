@@ -24,8 +24,8 @@ class SsmlMicrosoft {
   String ssmlRoot(String ssml) {
     return '<speak version="1.0" '
         'xmlns="http://www.w3.org/2001/10/synthesis" '
-        'xml:lang="${voice.locale}">'
-        '<voice xml:lang="${voice.locale}" '
+        'xml:lang="${voice.locale.code}">'
+        '<voice xml:lang="${voice.locale.code}" '
         'xml:gender="${voice.gender}" '
         'name="${voice.code}">'
         '<prosody rate="$rate" pitch="$pitch">'

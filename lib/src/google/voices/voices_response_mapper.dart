@@ -19,7 +19,9 @@ class VoicesResponseMapperGoogle extends BaseResponseMapper {
               .map((e) => VoiceGoogle.fromJson(e as Map<String, dynamic>))
               .toList(growable: false);
 
-          voices.sort((a, b) => a.locale.compareTo(b.locale));
+          voices = Helpers.removeVoiceDuplicates(voices);
+
+          Helpers.sortVoices(voices);
 
           voices =
               Helpers.mapVoiceNames(voices, VoiceNames.male, VoiceNames.female);
