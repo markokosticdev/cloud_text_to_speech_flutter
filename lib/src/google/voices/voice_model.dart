@@ -11,11 +11,13 @@ part 'voice_model.g.dart';
 @JsonSerializable(createToJson: false)
 class VoiceGoogle extends VoiceUniversal {
   @JsonKey(name: "name", includeToJson: false)
+  String code;
+  @JsonKey(name: "name", fromJson: _toVoiceType, includeToJson: false)
+  String voiceType;
+  @JsonKey(name: "name", includeToJson: false)
   String name;
   @JsonKey(name: "name", includeToJson: false)
   String nativeName;
-  @JsonKey(name: "name", includeToJson: false)
-  String code;
   @JsonKey(name: "ssmlGender", fromJson: _toGender)
   String gender;
   @JsonKey(name: "languageCodes", fromJson: _toLocale, includeToJson: false)
@@ -25,8 +27,6 @@ class VoiceGoogle extends VoiceUniversal {
       fromJson: _toSampleRateHertz,
       includeToJson: false)
   String sampleRateHertz;
-  @JsonKey(name: "name", fromJson: _toVoiceType, includeToJson: false)
-  String voiceType;
 
   VoiceGoogle({
     required this.code,

@@ -68,7 +68,14 @@ class TtsUniversal {
     switch (provider) {
       case 'microsoft':
         TtsParamsMicrosoft ttsParamsMicrosoft = TtsParamsMicrosoft(
-            voice: ttsParams.voice as VoiceMicrosoft,
+            voice: VoiceMicrosoft(
+                code: ttsParams.voice.code,
+                voiceType: ttsParams.voice.voiceType,
+                name: ttsParams.voice.name,
+                nativeName: ttsParams.voice.nativeName,
+                gender: ttsParams.voice.gender,
+                locale: ttsParams.voice.locale,
+                sampleRateHertz: ttsParams.voice.sampleRateHertz),
             audioFormat: ttsParams.audioFormatMicrosoft,
             text: ttsParams.text,
             rate: ttsParams.rate,
@@ -80,7 +87,14 @@ class TtsUniversal {
       case 'google':
       default:
         TtsParamsGoogle ttsParamsGoogle = TtsParamsGoogle(
-            voice: ttsParams.voice as VoiceGoogle,
+            voice: VoiceGoogle(
+                code: ttsParams.voice.code,
+                voiceType: ttsParams.voice.voiceType,
+                name: ttsParams.voice.name,
+                nativeName: ttsParams.voice.nativeName,
+                gender: ttsParams.voice.gender,
+                locale: ttsParams.voice.locale,
+                sampleRateHertz: ttsParams.voice.sampleRateHertz),
             audioFormat: ttsParams.audioFormatGoogle,
             text: ttsParams.text,
             rate: ttsParams.rate,

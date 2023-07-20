@@ -12,6 +12,8 @@ part 'voice_model.g.dart';
 class VoiceMicrosoft extends VoiceUniversal {
   @JsonKey(name: "ShortName")
   String code;
+  @JsonKey(name: "VoiceType")
+  String voiceType;
   @JsonKey(name: "DisplayName")
   String name;
   @JsonKey(name: "LocalName")
@@ -20,14 +22,12 @@ class VoiceMicrosoft extends VoiceUniversal {
   String gender;
   @JsonKey(name: "Locale", fromJson: _toLocale, includeToJson: false)
   VoiceLocale locale;
-  @JsonKey(name: "StyleList")
-  List<String>? styleList;
   @JsonKey(name: "SampleRateHertz")
   String sampleRateHertz;
-  @JsonKey(name: "VoiceType")
-  String voiceType;
+  @JsonKey(name: "StyleList")
+  List<String>? styleList;
   @JsonKey(name: "Status")
-  String status;
+  String? status;
   @JsonKey(name: "WordsPerMinute")
   String? wordsPerMinute;
 
@@ -38,10 +38,10 @@ class VoiceMicrosoft extends VoiceUniversal {
       required this.nativeName,
       required this.gender,
       required this.locale,
-      required this.styleList,
       required this.sampleRateHertz,
-      required this.status,
-      required this.wordsPerMinute})
+      this.styleList,
+      this.status,
+      this.wordsPerMinute})
       : super(
             code: code,
             voiceType: voiceType,
