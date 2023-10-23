@@ -17,7 +17,7 @@ class SsmlGoogle {
 
   String ssmlRoot(String ssml) {
     return '<speak version="1.0" '
-        'xmlns="http://www.w3.org/2001/10/synthesis" '
+        'xmlns="http://www.w3.org/2001/10/synthesis">'
         '<prosody rate="$rate" pitch="$pitch">'
         '$ssml'
         '</prosody></speak>';
