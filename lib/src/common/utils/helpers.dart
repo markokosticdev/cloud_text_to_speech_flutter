@@ -8,12 +8,26 @@ class Helpers {
   Helpers._();
 
   static Locale segmentsToLocale(List<String> localeSegments) {
+    Map<String, String> languageCodeMap = {
+      'cmn': 'zh',
+    };
+
+    Map<String, String> countryCodeMap = {
+      'guangxi': 'CN',
+      'henan': 'CN',
+      'liaoning': 'CN',
+      'shaanxi': 'CN',
+      'shandong': 'CN',
+      'sichuan': 'CN',
+    };
+
     String? languageCode = localeSegments[0];
     String? scriptCode = localeSegments.length == 3 ? localeSegments[1] : null;
     String? countryCode =
         localeSegments.length == 3 ? localeSegments[2] : localeSegments[1];
 
-    languageCode = languageCode == 'cmn' ? 'zh' : languageCode;
+    languageCode = languageCodeMap[languageCode] ?? languageCode;
+    countryCode = countryCodeMap[countryCode] ?? countryCode;
 
     return Locale.fromSubtags(
       languageCode: languageCode,
@@ -169,7 +183,7 @@ class Helpers {
 
   static void sortVoices<T extends VoiceUniversal>(List<T> voices) {
     voices.sort((a, b) {
-      int localeComparison = a.locale.code.compareTo(b.locale.code);
+      int localeComparison = a.locale.name!.compareTo(b.locale.name!);
       if (localeComparison != 0) {
         return localeComparison;
       } else {
