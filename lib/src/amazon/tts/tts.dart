@@ -13,7 +13,9 @@ class TtsAmazon {
   static final AudioHandlerAmazon _audioHandler = AudioHandlerAmazon();
   static final VoicesHandlerAmazon _voicesHandler = VoicesHandlerAmazon();
   static late final RepositoryAmazon repo;
-  static bool initDone = false;
+  static bool _initDone = false;
+
+  TtsAmazon._();
 
   /// MUST be called first before any other call is made.
   ///
@@ -57,11 +59,11 @@ class TtsAmazon {
 
   static void _init(String keyId, String accessKey, String region,
       [bool withLogs = true]) {
-    if (!initDone) {
+    if (!_initDone) {
       ConfigAmazon.init(keyId: keyId, accessKey: accessKey, region: region);
       _initRepository();
       _initLogs(withLogs);
-      initDone = true;
+      _initDone = true;
       Log.d("TtsAmazon initialised");
     } else {
       Log.d("TtsAmazon initialised already!");
@@ -75,4 +77,6 @@ class TtsAmazon {
 
   static void _initLogs(bool withLogs) =>
       withLogs ? Log.enable() : Log.disable();
+
+  static bool get initDone => _initDone;
 }

@@ -1,9 +1,10 @@
 import 'package:cloud_text_to_speech/cloud_text_to_speech.dart';
+import 'package:cloud_text_to_speech/src/common/tts/tts_providers.dart';
 
 void main() async {
   try {
     TtsUniversal.init(
-        provider: 'amazon',
+        provider: TtsProviders.amazon,
         googleParams: InitParamsGoogle(apiKey: 'API-KEY'),
         microsoftParams: InitParamsMicrosoft(
             subscriptionKey: 'SUBSCRIPTION-KEY', region: 'eastus'),
@@ -14,7 +15,11 @@ void main() async {
     //Generate Audio for a text
     const text = "Amazon, Microsoft and Google Text-to-Speech API are awesome";
 
-    for (String provider in ['amazon', 'microsoft', 'google']) {
+    for (String provider in [
+      TtsProviders.amazon,
+      TtsProviders.microsoft,
+      TtsProviders.google
+    ]) {
       TtsUniversal.setProvider(provider);
 
       final voicesResponse = await TtsUniversal.getVoices();

@@ -11,6 +11,7 @@ class TtsParamsMapper {
   static TtsParamsGoogle toGoogle(TtsParamsUniversal universalParams) {
     return TtsParamsGoogle(
       voice: VoiceGoogle(
+        engines: universalParams.voice.engines,
         code: universalParams.voice.code,
         voiceType: universalParams.voice.voiceType,
         name: universalParams.voice.name,
@@ -29,6 +30,7 @@ class TtsParamsMapper {
   static TtsParamsMicrosoft toMicrosoft(TtsParamsUniversal universalParams) {
     return TtsParamsMicrosoft(
       voice: VoiceMicrosoft(
+        engines: universalParams.voice.engines,
         code: universalParams.voice.code,
         voiceType: universalParams.voice.voiceType,
         name: universalParams.voice.name,
@@ -47,6 +49,7 @@ class TtsParamsMapper {
   static TtsParamsAmazon toAmazon(TtsParamsUniversal universalParams) {
     return TtsParamsAmazon(
       voice: VoiceAmazon(
+        engines: universalParams.voice.engines,
         code: universalParams.voice.code,
         voiceType: universalParams.voice.voiceType,
         name: universalParams.voice.name,

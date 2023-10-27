@@ -6,6 +6,7 @@ class TtsParamsUniversal {
   final String audioFormat;
   final String rate;
   final String pitch;
+  // final bool onlyNeural; //TODO: implement this
 
   TtsParamsUniversal({
     required this.voice,

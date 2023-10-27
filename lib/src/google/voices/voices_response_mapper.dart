@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:cloud_text_to_speech/src/common/http/base_response.dart';
 import 'package:cloud_text_to_speech/src/common/http/base_response_mapper.dart';
-import 'package:cloud_text_to_speech/src/common/other/constants.dart';
+import 'package:cloud_text_to_speech/src/common/other/voice_names.dart';
 import 'package:cloud_text_to_speech/src/common/utils/helpers.dart';
 import 'package:cloud_text_to_speech/src/google/voices/voice_model.dart';
 import 'package:cloud_text_to_speech/src/google/voices/voices_responses.dart';

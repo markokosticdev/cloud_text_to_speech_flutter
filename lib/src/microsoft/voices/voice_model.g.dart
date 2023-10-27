@@ -8,6 +8,8 @@ part of 'voice_model.dart';
 
 VoiceMicrosoft _$VoiceMicrosoftFromJson(Map<String, dynamic> json) =>
     VoiceMicrosoft(
+      provider: json['provider'] as String? ?? TtsProviders.microsoft,
+      engines: VoiceMicrosoft._toEngines(json['VoiceType'] as String),
       code: json['ShortName'] as String,
       voiceType: json['VoiceType'] as String,
       name: json['DisplayName'] as String,

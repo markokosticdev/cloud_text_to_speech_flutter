@@ -2,6 +2,8 @@ import 'package:cloud_text_to_speech/src/amazon/audio/audio_responses.dart';
 import 'package:cloud_text_to_speech/src/amazon/common/init.dart';
 import 'package:cloud_text_to_speech/src/amazon/tts/tts.dart';
 import 'package:cloud_text_to_speech/src/amazon/voices/voices.dart';
+import 'package:cloud_text_to_speech/src/common/tts/tts_providers.dart';
+import 'package:cloud_text_to_speech/src/common/utils/helpers.dart';
 import 'package:cloud_text_to_speech/src/common/utils/log.dart';
 
 import 'package:cloud_text_to_speech/src/microsoft/audio/audio_responses.dart';
@@ -22,7 +24,7 @@ import 'package:cloud_text_to_speech/src/universal/voices/voices.dart';
 ///Helper class for Universal TTS requests
 class TtsUniversal {
   static late String _provider;
-  static bool initDone = false;
+  static bool _initDone = false;
 
   static void setProvider(String provider) {
     TtsUniversal._provider = provider.toLowerCase();
@@ -54,22 +56,58 @@ class TtsUniversal {
   ///
   static Future<VoicesSuccessUniversal> getVoices() async {
     return await handleProvider<Future<VoicesSuccessUniversal>>(
-      google: () async {
-        VoicesSuccessGoogle voices = await TtsGoogle.getVoices();
-        return VoicesSuccessUniversal(
-            voices: voices.voices, code: voices.code, reason: voices.reason);
-      },
-      microsoft: () async {
-        VoicesSuccessMicrosoft voices = await TtsMicrosoft.getVoices();
-        return VoicesSuccessUniversal(
-            voices: voices.voices, code: voices.code, reason: voices.reason);
-      },
-      amazon: () async {
-        VoicesSuccessAmazon voices = await TtsAmazon.getVoices();
-        return VoicesSuccessUniversal(
-            voices: voices.voices, code: voices.code, reason: voices.reason);
+      google: () => _getVoices(TtsProviders.google),
+      microsoft: () => _getVoices(TtsProviders.microsoft),
+      amazon: () => _getVoices(TtsProviders.amazon),
+      combine: () async {
+        List<Future<VoicesSuccessUniversal>> allVoicesFutures = [
+          if (isProviderInitDone(TtsProviders.google))
+            _getVoices(TtsProviders.google),
+          if (isProviderInitDone(TtsProviders.microsoft))
+            _getVoices(TtsProviders.microsoft),
+          if (isProviderInitDone(TtsProviders.amazon))
+            _getVoices(TtsProviders.amazon),
+        ];
+
+        List<VoicesSuccessUniversal> allVoices =
+            await Future.wait(allVoicesFutures);
+
+        VoicesSuccessUniversal aggregatedVoices = VoicesSuccessUniversal(
+            voices: [], code: 200, reason: 'Aggregated voices');
+
+        List<VoiceUniversal> voices = [];
+
+        for (VoicesSuccessUniversal item in allVoices) {
+          voices.addAll(item.voices);
+        }
+
+        Helpers.sortVoices(voices);
+
+        aggregatedVoices.voices.addAll(voices);
+
+        return aggregatedVoices;
       },
     );
+  }
+
+  static Future<VoicesSuccessUniversal> _getVoices(String provider) async {
+    return await handleProvider<Future<VoicesSuccessUniversal>>(
+        google: () async {
+          VoicesSuccessGoogle voices = await TtsGoogle.getVoices();
+          return VoicesSuccessUniversal(
+              voices: voices.voices, code: voices.code, reason: voices.reason);
+        },
+        microsoft: () async {
+          VoicesSuccessMicrosoft voices = await TtsMicrosoft.getVoices();
+          return VoicesSuccessUniversal(
+              voices: voices.voices, code: voices.code, reason: voices.reason);
+        },
+        amazon: () async {
+          VoicesSuccessAmazon voices = await TtsAmazon.getVoices();
+          return VoicesSuccessUniversal(
+              voices: voices.voices, code: voices.code, reason: voices.reason);
+        },
+        provider: provider);
   }
 
   ///Converts text to speech and return audio file as [Uint8List].
@@ -91,25 +129,25 @@ class TtsUniversal {
   static Future<AudioSuccessUniversal> convertTts(
       TtsParamsUniversal params) async {
     return await handleProvider<Future<AudioSuccessUniversal>>(
-      google: () async {
-        AudioSuccessGoogle audio =
-            await TtsGoogle.convertTts(TtsParamsMapper.toGoogle(params));
-        return AudioSuccessUniversal(
-            audio: audio.audio, code: audio.code, reason: audio.reason);
-      },
-      microsoft: () async {
-        AudioSuccessMicrosoft audio =
-            await TtsMicrosoft.convertTts(TtsParamsMapper.toMicrosoft(params));
-        return AudioSuccessUniversal(
-            audio: audio.audio, code: audio.code, reason: audio.reason);
-      },
-      amazon: () async {
-        AudioSuccessAmazon audio =
-            await TtsAmazon.convertTts(TtsParamsMapper.toAmazon(params));
-        return AudioSuccessUniversal(
-            audio: audio.audio, code: audio.code, reason: audio.reason);
-      },
-    );
+        google: () async {
+          AudioSuccessGoogle audio =
+              await TtsGoogle.convertTts(TtsParamsMapper.toGoogle(params));
+          return AudioSuccessUniversal(
+              audio: audio.audio, code: audio.code, reason: audio.reason);
+        },
+        microsoft: () async {
+          AudioSuccessMicrosoft audio = await TtsMicrosoft.convertTts(
+              TtsParamsMapper.toMicrosoft(params));
+          return AudioSuccessUniversal(
+              audio: audio.audio, code: audio.code, reason: audio.reason);
+        },
+        amazon: () async {
+          AudioSuccessAmazon audio =
+              await TtsAmazon.convertTts(TtsParamsMapper.toAmazon(params));
+          return AudioSuccessUniversal(
+              audio: audio.audio, code: audio.code, reason: audio.reason);
+        },
+        provider: params.voice.provider);
   }
 
   static void _init(String provider, InitParamsGoogle? google,
@@ -123,23 +161,23 @@ class TtsUniversal {
 
     final initialisedProviders = [];
 
-    if (!initDone) {
+    if (!_initDone) {
       if (google != null) {
         TtsGoogle.init(params: google);
-        initialisedProviders.add('google');
+        initialisedProviders.add(TtsProviders.google);
       }
 
       if (microsoft != null) {
         TtsMicrosoft.init(params: microsoft);
-        initialisedProviders.add('microsoft');
+        initialisedProviders.add(TtsProviders.microsoft);
       }
 
       if (amazon != null) {
         TtsAmazon.init(params: amazon);
-        initialisedProviders.add('amazon');
+        initialisedProviders.add(TtsProviders.amazon);
       }
 
-      initDone = true;
+      _initDone = true;
       Log.d("TtsUniversal initialised for: ${initialisedProviders.join(', ')}");
     } else {
       Log.d("TtsUniversal initialised already!");
@@ -154,15 +192,17 @@ class TtsUniversal {
     }
 
     switch (provider) {
-      case 'google':
+      case TtsProviders.google:
         assert(google != null, 'Google initialization parameters are missing.');
         break;
-      case 'microsoft':
+      case TtsProviders.microsoft:
         assert(microsoft != null,
             'Microsoft initialization parameters are missing.');
         break;
-      case 'amazon':
+      case TtsProviders.amazon:
         assert(amazon != null, 'Amazon initialization parameters are missing.');
+        break;
+      case TtsProviders.combine:
         break;
       default:
         throw Exception("Unknown provider: $provider");
@@ -173,17 +213,22 @@ class TtsUniversal {
     T Function()? google,
     T Function()? microsoft,
     T Function()? amazon,
+    T Function()? combine,
+    String? provider,
   }) {
-    switch (_provider) {
-      case 'google':
+    switch (provider ?? _provider) {
+      case TtsProviders.google:
         assert(google != null, 'Google handle function is missing.');
         return google!();
-      case 'microsoft':
+      case TtsProviders.microsoft:
         assert(microsoft != null, 'Microsoft handle function is missing.');
         return microsoft!();
-      case 'amazon':
+      case TtsProviders.amazon:
         assert(amazon != null, 'Amazon handle function is missing.');
         return amazon!();
+      case TtsProviders.combine:
+        assert(combine != null, 'Combine handle function is missing.');
+        return combine!();
       default:
         throw Exception("Unknown provider: $_provider");
     }
@@ -191,4 +236,19 @@ class TtsUniversal {
 
   static void _initLogs(bool withLogs) =>
       withLogs ? Log.enable() : Log.disable();
+
+  static bool isProviderInitDone(String provider) {
+    switch (provider) {
+      case TtsProviders.google:
+        return TtsGoogle.initDone;
+      case TtsProviders.microsoft:
+        return TtsMicrosoft.initDone;
+      case TtsProviders.amazon:
+        return TtsAmazon.initDone;
+      default:
+        throw Exception("Unknown provider: $provider");
+    }
+  }
+
+  static bool get initDone => _initDone;
 }

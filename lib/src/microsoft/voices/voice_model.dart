@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:cloud_text_to_speech/src/common/tts/tts_providers.dart';
 import 'package:cloud_text_to_speech/src/common/utils/helpers.dart';
 import 'package:cloud_text_to_speech/src/common/locale/locale_model.dart';
 import 'package:cloud_text_to_speech/src/universal/voices/voice_model.dart';
@@ -10,8 +11,13 @@ part 'voice_model.g.dart';
 
 @JsonSerializable(createToJson: false)
 class VoiceMicrosoft extends VoiceUniversal {
+  @JsonKey(includeToJson: false)
+  String provider;
+  @JsonKey(name: "VoiceType", fromJson: _toEngines, includeToJson: false)
+  List<String> engines;
   @JsonKey(name: "ShortName", includeToJson: false)
   String code;
+  @Deprecated("Use engines instead")
   @JsonKey(name: "VoiceType", includeToJson: false)
   String voiceType;
   @JsonKey(name: "DisplayName", includeToJson: false)
@@ -32,7 +38,9 @@ class VoiceMicrosoft extends VoiceUniversal {
   String? wordsPerMinute;
 
   VoiceMicrosoft(
-      {required this.code,
+      {this.provider = TtsProviders.microsoft,
+      required this.engines,
+      required this.code,
       required this.voiceType,
       required this.name,
       required this.nativeName,
@@ -43,6 +51,8 @@ class VoiceMicrosoft extends VoiceUniversal {
       this.status,
       this.wordsPerMinute})
       : super(
+            provider: provider,
+            engines: engines,
             code: code,
             voiceType: voiceType,
             name: name,
@@ -52,6 +62,10 @@ class VoiceMicrosoft extends VoiceUniversal {
 
   factory VoiceMicrosoft.fromJson(Map<String, dynamic> json) =>
       _$VoiceMicrosoftFromJson(json);
+
+  static List<String> _toEngines(String voiceType) {
+    return [voiceType.toLowerCase()];
+  }
 
   static VoiceLocale _toLocale(String locale) {
     List<String> localeSegments = locale.split('-');

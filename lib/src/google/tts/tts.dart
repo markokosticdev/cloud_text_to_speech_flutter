@@ -13,7 +13,9 @@ class TtsGoogle {
   static final AudioHandlerGoogle _audioHandler = AudioHandlerGoogle();
   static final VoicesHandlerGoogle _voicesHandler = VoicesHandlerGoogle();
   static late final RepositoryGoogle repo;
-  static bool initDone = false;
+  static bool _initDone = false;
+
+  TtsGoogle._();
 
   /// MUST be called first before any other call is made.
   ///
@@ -56,11 +58,11 @@ class TtsGoogle {
   }
 
   static void _init(String apiKey, [bool withLogs = true]) {
-    if (!initDone) {
+    if (!_initDone) {
       ConfigGoogle.init(apiKey: apiKey);
       _initRepository();
       _initLogs(withLogs);
-      initDone = true;
+      _initDone = true;
       Log.d("TtsGoogle initialised");
     } else {
       Log.d("TtsGoogle initialised already!");
@@ -74,4 +76,6 @@ class TtsGoogle {
 
   static void _initLogs(bool withLogs) =>
       withLogs ? Log.enable() : Log.disable();
+
+  static bool get initDone => _initDone;
 }

@@ -7,6 +7,8 @@ part of 'voice_model.dart';
 // **************************************************************************
 
 VoiceGoogle _$VoiceGoogleFromJson(Map<String, dynamic> json) => VoiceGoogle(
+      provider: json['provider'] as String? ?? TtsProviders.google,
+      engines: VoiceGoogle._toEngines(json['name'] as String),
       code: json['name'] as String,
       voiceType: VoiceGoogle._toVoiceType(json['name'] as String),
       name: json['name'] as String,

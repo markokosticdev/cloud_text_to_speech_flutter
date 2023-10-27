@@ -13,7 +13,9 @@ class TtsMicrosoft {
   static final AudioHandlerMicrosoft _audioHandler = AudioHandlerMicrosoft();
   static final VoicesHandlerMicrosoft _voicesHandler = VoicesHandlerMicrosoft();
   static late final RepositoryMicrosoft repo;
-  static bool initDone = false;
+  static bool _initDone = false;
+
+  TtsMicrosoft._();
 
   /// MUST be called first before any other call is made.
   ///
@@ -58,11 +60,11 @@ class TtsMicrosoft {
 
   static void _init(String subscriptionKey, String region,
       [bool withLogs = true]) {
-    if (!initDone) {
+    if (!_initDone) {
       ConfigMicrosoft.init(subscriptionKey: subscriptionKey, region: region);
       _initRepository();
       _initLogs(withLogs);
-      initDone = true;
+      _initDone = true;
       Log.d("TtsMicrosoft initialised");
     } else {
       Log.d("TtsMicrosoft initialised already!");
@@ -76,4 +78,6 @@ class TtsMicrosoft {
 
   static void _initLogs(bool withLogs) =>
       withLogs ? Log.enable() : Log.disable();
+
+  static bool get initDone => _initDone;
 }

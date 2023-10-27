@@ -1,6 +1,6 @@
-import 'package:cloud_text_to_speech/src/microsoft/common/config.dart';
-
 class VoiceNames {
+  VoiceNames._();
+
   static List<String> get male => [
         'Liam',
         'Noah',

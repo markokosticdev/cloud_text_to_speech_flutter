@@ -41,3 +41,9 @@
 * Update Universal TTS
 * Add audio format mapping
 * Update tts params mapping
+
+## 2.1.0
+* Add Combine provider
+* Add provider to voice models
+* Add engines to voice models
+* Add initDone getters

@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:cloud_text_to_speech/src/common/tts/tts_providers.dart';
 import 'package:cloud_text_to_speech/src/common/utils/helpers.dart';
 import 'package:cloud_text_to_speech/src/common/locale/locale_model.dart';
 import 'package:cloud_text_to_speech/src/universal/voices/voice_model.dart';
@@ -10,8 +11,13 @@ part 'voice_model.g.dart';
 
 @JsonSerializable(createToJson: false)
 class VoiceAmazon extends VoiceUniversal {
+  @JsonKey(includeToJson: false)
+  String provider;
+  @JsonKey(name: "SupportedEngines", fromJson: _toEngines, includeToJson: false)
+  List<String> engines;
   @JsonKey(name: "Id", includeToJson: false)
   String code;
+  @Deprecated("Use engines instead")
   @JsonKey(
       name: "SupportedEngines", fromJson: _toVoiceType, includeToJson: false)
   String voiceType;
@@ -25,13 +31,17 @@ class VoiceAmazon extends VoiceUniversal {
   VoiceLocale locale;
 
   VoiceAmazon(
-      {required this.code,
+      {this.provider = TtsProviders.amazon,
+      required this.engines,
+      required this.code,
       required this.voiceType,
       required this.name,
       required this.nativeName,
       required this.gender,
       required this.locale})
       : super(
+            provider: provider,
+            engines: engines,
             code: code,
             voiceType: voiceType,
             name: name,
@@ -41,6 +51,13 @@ class VoiceAmazon extends VoiceUniversal {
 
   factory VoiceAmazon.fromJson(Map<String, dynamic> json) =>
       _$VoiceAmazonFromJson(json);
+
+  static List<String> _toEngines(List<dynamic> supportedEngines) {
+    if (supportedEngines.isNotEmpty && supportedEngines is List<String>) {
+      return supportedEngines.map((e) => e.toLowerCase()).toList();
+    }
+    return [];
+  }
 
   static String _toVoiceType(List<dynamic> supportedEngines) {
     if (supportedEngines.isNotEmpty) {
