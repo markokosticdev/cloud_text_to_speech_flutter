@@ -15,7 +15,7 @@ class VoicesHandlerMicrosoft {
     try {
       final mapper = VoicesResponseMapperMicrosoft();
       final response =
-          await voiceClient.get(Uri.parse(EndpointsMicrosoft.voicesList));
+          await voiceClient.get(Uri.parse(EndpointsMicrosoft.voices));
       final voicesResponse = mapper.map(response);
       if (voicesResponse is VoicesSuccessMicrosoft) {
         return voicesResponse;

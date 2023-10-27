@@ -14,7 +14,7 @@ VoiceMicrosoft _$VoiceMicrosoftFromJson(Map<String, dynamic> json) =>
       nativeName: json['LocalName'] as String,
       gender: json['Gender'] as String,
       locale: VoiceMicrosoft._toLocale(json['Locale'] as String),
-      sampleRateHertz: json['SampleRateHertz'] as String,
+      sampleRateHertz: json['SampleRateHertz'] as String?,
       styleList: (json['StyleList'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),

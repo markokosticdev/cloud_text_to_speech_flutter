@@ -1,10 +1,10 @@
 import 'dart:ui';
 
 import 'package:cloud_text_to_speech/src/common/utils/helpers.dart';
+import 'package:cloud_text_to_speech/src/common/locale/locale_model.dart';
+import 'package:cloud_text_to_speech/src/universal/voices/voice_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:locale_names/locale_names.dart';
-
-import '../../../cloud_text_to_speech.dart';
 
 part 'voice_model.g.dart';
 
@@ -18,7 +18,7 @@ class VoiceGoogle extends VoiceUniversal {
   String name;
   @JsonKey(name: "name", includeToJson: false)
   String nativeName;
-  @JsonKey(name: "ssmlGender", fromJson: _toGender)
+  @JsonKey(name: "ssmlGender", fromJson: _toGender, includeToJson: false)
   String gender;
   @JsonKey(name: "languageCodes", fromJson: _toLocale, includeToJson: false)
   VoiceLocale locale;
@@ -26,7 +26,7 @@ class VoiceGoogle extends VoiceUniversal {
       name: "naturalSampleRateHertz",
       fromJson: _toSampleRateHertz,
       includeToJson: false)
-  String sampleRateHertz;
+  String? sampleRateHertz;
 
   VoiceGoogle({
     required this.code,
@@ -35,15 +35,14 @@ class VoiceGoogle extends VoiceUniversal {
     required this.nativeName,
     required this.gender,
     required this.locale,
-    required this.sampleRateHertz,
+    this.sampleRateHertz,
   }) : super(
             code: code,
             voiceType: voiceType,
             name: name,
             nativeName: nativeName,
             gender: gender,
-            locale: locale,
-            sampleRateHertz: sampleRateHertz);
+            locale: locale);
 
   factory VoiceGoogle.fromJson(Map<String, dynamic> json) =>
       _$VoiceGoogleFromJson(json);

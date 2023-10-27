@@ -10,6 +10,7 @@ class Helpers {
   static Locale segmentsToLocale(List<String> localeSegments) {
     Map<String, String> languageCodeMap = {
       'cmn': 'zh',
+      'arb': 'ar',
     };
 
     Map<String, String> countryCodeMap = {
@@ -23,8 +24,11 @@ class Helpers {
 
     String? languageCode = localeSegments[0];
     String? scriptCode = localeSegments.length == 3 ? localeSegments[1] : null;
-    String? countryCode =
-        localeSegments.length == 3 ? localeSegments[2] : localeSegments[1];
+    String? countryCode = localeSegments.length == 3
+        ? localeSegments[2]
+        : localeSegments.length == 2
+            ? localeSegments[1]
+            : null;
 
     languageCode = languageCodeMap[languageCode] ?? languageCode;
     countryCode = countryCodeMap[countryCode] ?? countryCode;
@@ -39,9 +43,9 @@ class Helpers {
   static String? formatLanguageCountry(String? language, String? country) {
     if (language == null && country == null) {
       return null;
-    } else if (country == null) {
+    } else if (country == null || country.isEmpty) {
       return language;
-    } else if (language == null) {
+    } else if (language == null || country.isEmpty) {
       return null;
     } else {
       return '$language ($country)';

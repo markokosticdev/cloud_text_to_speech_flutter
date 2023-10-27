@@ -3,40 +3,42 @@ import 'package:cloud_text_to_speech/cloud_text_to_speech.dart';
 void main() async {
   try {
     TtsMicrosoft.init(
-        subscriptionKey: "SUBSCRIPTION-KEY", region: "eastus", withLogs: true);
+        params: InitParamsMicrosoft(
+            subscriptionKey: "SUBSCRIPTION-KEY", region: "eastus"),
+        withLogs: true);
 
     // Get voices
-    final voicesResponseMicrosoft = await TtsMicrosoft.getVoices();
-    final voicesMicrosoft = voicesResponseMicrosoft.voices;
+    final voicesResponse = await TtsMicrosoft.getVoices();
+    final voices = voicesResponse.voices;
 
     //Print all voices
-    print(voicesMicrosoft);
+    print(voices);
 
     //Pick an English Voice
-    final voiceMicrosoft = voicesResponseMicrosoft.voices
+    final voice = voices
         .where((element) => element.locale.code.startsWith("en-"))
         .toList(growable: false)
         .first;
 
     //Generate Audio for a text
-    final textMicrosoft = "Microsoft Text-to-Speech API is awesome";
+    final text = "Microsoft Text-to-Speech API is awesome";
 
-    TtsParamsMicrosoft paramsMicrosoft = TtsParamsMicrosoft(
-        voice: voiceMicrosoft,
+    TtsParamsMicrosoft ttsParams = TtsParamsMicrosoft(
+        voice: voice,
         audioFormat: AudioOutputFormatMicrosoft.audio48Khz192kBitrateMonoMp3,
-        text: textMicrosoft,
+        text: text,
         rate: 'slow',
         // optional
         pitch: 'default' // optional
         );
 
-    final ttsResponseMicrosoft = await TtsMicrosoft.convertTts(paramsMicrosoft);
+    final ttsResponse = await TtsMicrosoft.convertTts(ttsParams);
 
     //Get the audio bytes.
-    final audioBytesMicrosoft = ttsResponseMicrosoft.audio.buffer
+    final audioBytes = ttsResponse.audio.buffer
         .asByteData(); // you can save to a file for playback
     print(
-        "Audio size: ${(audioBytesMicrosoft.lengthInBytes / (1024 * 1024)).toStringAsPrecision(2)} Mb");
+        "Audio size: ${(audioBytes.lengthInBytes / (1024 * 1024)).toStringAsPrecision(2)} Mb");
   } catch (e) {
     print("Something went wrong: $e");
   }

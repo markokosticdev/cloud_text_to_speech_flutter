@@ -5,7 +5,7 @@ class ConfigMicrosoft {
 
   ConfigMicrosoft._();
 
-  static void init({required String region, required String subscriptionKey}) {
+  static void init({required String subscriptionKey, required String region}) {
     ConfigMicrosoft.subscriptionKey = subscriptionKey;
     ConfigMicrosoft.region = region;
   }

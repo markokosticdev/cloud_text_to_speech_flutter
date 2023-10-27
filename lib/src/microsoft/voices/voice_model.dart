@@ -1,34 +1,34 @@
 import 'dart:ui';
 
 import 'package:cloud_text_to_speech/src/common/utils/helpers.dart';
+import 'package:cloud_text_to_speech/src/common/locale/locale_model.dart';
+import 'package:cloud_text_to_speech/src/universal/voices/voice_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:locale_names/locale_names.dart';
-
-import '../../../cloud_text_to_speech.dart';
 
 part 'voice_model.g.dart';
 
 @JsonSerializable(createToJson: false)
 class VoiceMicrosoft extends VoiceUniversal {
-  @JsonKey(name: "ShortName")
+  @JsonKey(name: "ShortName", includeToJson: false)
   String code;
-  @JsonKey(name: "VoiceType")
+  @JsonKey(name: "VoiceType", includeToJson: false)
   String voiceType;
-  @JsonKey(name: "DisplayName")
+  @JsonKey(name: "DisplayName", includeToJson: false)
   String name;
-  @JsonKey(name: "LocalName")
+  @JsonKey(name: "LocalName", includeToJson: false)
   String nativeName;
-  @JsonKey(name: "Gender")
+  @JsonKey(name: "Gender", includeToJson: false)
   String gender;
   @JsonKey(name: "Locale", fromJson: _toLocale, includeToJson: false)
   VoiceLocale locale;
-  @JsonKey(name: "SampleRateHertz")
-  String sampleRateHertz;
-  @JsonKey(name: "StyleList")
+  @JsonKey(name: "SampleRateHertz", includeToJson: false)
+  String? sampleRateHertz;
+  @JsonKey(name: "StyleList", includeToJson: false)
   List<String>? styleList;
-  @JsonKey(name: "Status")
+  @JsonKey(name: "Status", includeToJson: false)
   String? status;
-  @JsonKey(name: "WordsPerMinute")
+  @JsonKey(name: "WordsPerMinute", includeToJson: false)
   String? wordsPerMinute;
 
   VoiceMicrosoft(
@@ -38,7 +38,7 @@ class VoiceMicrosoft extends VoiceUniversal {
       required this.nativeName,
       required this.gender,
       required this.locale,
-      required this.sampleRateHertz,
+      this.sampleRateHertz,
       this.styleList,
       this.status,
       this.wordsPerMinute})
@@ -48,8 +48,7 @@ class VoiceMicrosoft extends VoiceUniversal {
             name: name,
             nativeName: nativeName,
             gender: gender,
-            locale: locale,
-            sampleRateHertz: sampleRateHertz);
+            locale: locale);
 
   factory VoiceMicrosoft.fromJson(Map<String, dynamic> json) =>
       _$VoiceMicrosoftFromJson(json);

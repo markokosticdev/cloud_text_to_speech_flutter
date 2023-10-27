@@ -24,7 +24,7 @@ class RepositoryMicrosoft {
   ///
   /// On failure returns one of the following:
   /// [VoicesFailedBadRequestMicrosoft], [VoicesFailedBadRequestMicrosoft], [VoicesFailedUnauthorizedMicrosoft],
-  /// [VoicesFailedTooManyRequestsMicrosoft], [VoicesFailedBadGateWayMicrosoft], [VoicesFailedUnkownErrorMicrosoft]
+  /// [VoicesFailedTooManyRequestsMicrosoft], [VoicesFailedBadGateWayMicrosoft], [VoicesFailedUnknownErrorMicrosoft]
   Future<VoicesSuccessMicrosoft> getVoices() async {
     return await voicesHandler.getVoices(
         SubscriptionKeyAuthenticationHeaderMicrosoft(
@@ -41,7 +41,7 @@ class RepositoryMicrosoft {
   ///
   /// On failure returns one of the following:
   /// [AudioFailedBadRequestMicrosoft], [AudioFailedUnauthorizedMicrosoft], [AudioFailedUnsupportedMicrosoft], [AudioFailedTooManyRequestMicrosoft],
-  /// [AudioFailedBadGatewayMicrosoft], [AudioFailedBadGatewayMicrosoft], [AudioFailedUnkownErrorMicrosoft] or [AzureExceptionMicrosoft]
+  /// [AudioFailedBadGatewayMicrosoft], [AudioFailedBadGatewayMicrosoft], [AudioFailedUnknownErrorMicrosoft] or [AzureExceptionMicrosoft]
   Future<AudioSuccessMicrosoft> convertTts(TtsParamsMicrosoft ttsParams) async {
     return await audioHandler.getAudio(
         ttsParams,

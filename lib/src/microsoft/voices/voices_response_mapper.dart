@@ -13,7 +13,9 @@ class VoicesResponseMapperMicrosoft extends BaseResponseMapper {
     switch (response.statusCode) {
       case 200:
         {
-          final json = jsonDecode(response.body) as List<dynamic>;
+          String utfDecodedResponse = utf8.decode(response.bodyBytes);
+
+          final json = jsonDecode(utfDecodedResponse) as List<dynamic>;
           var voices = json
               .map((e) => VoiceMicrosoft.fromJson(e as Map<String, dynamic>))
               .toList(growable: false);
@@ -34,7 +36,7 @@ class VoicesResponseMapperMicrosoft extends BaseResponseMapper {
       case 502:
         return VoicesFailedBadGateWayMicrosoft();
       default:
-        return VoicesFailedUnkownErrorMicrosoft(
+        return VoicesFailedUnknownErrorMicrosoft(
             code: response.statusCode,
             reason: response.reasonPhrase ?? response.body);
     }

@@ -14,9 +14,10 @@ class AudioClientMicrosoft extends BaseClient {
 
   @override
   Future<http.StreamedResponse> send(http.BaseRequest request) {
-    request.headers[header.type] = header.value;
+    request.headers[header!.type] = header!.value;
     request.headers[_audioTypeHeader.type] = _audioTypeHeader.value;
     request.headers['Content-Type'] = "application/ssml+xml";
+
     return client.send(request);
   }
 }

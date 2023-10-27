@@ -13,8 +13,7 @@ class VoicesHandlerGoogle {
 
     try {
       final mapper = VoicesResponseMapperGoogle();
-      final response =
-          await voiceClient.get(Uri.parse(EndpointsGoogle.voicesList));
+      final response = await voiceClient.get(Uri.parse(EndpointsGoogle.voices));
       final voicesResponse = mapper.map(response);
       if (voicesResponse is VoicesSuccessGoogle) {
         return voicesResponse;

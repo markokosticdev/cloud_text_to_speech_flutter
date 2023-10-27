@@ -2,8 +2,9 @@ import 'package:cloud_text_to_speech/src/common/utils/log.dart';
 import 'package:cloud_text_to_speech/src/google/audio/audio_handler.dart';
 import 'package:cloud_text_to_speech/src/google/audio/audio_responses.dart';
 import 'package:cloud_text_to_speech/src/google/common/config.dart';
+import 'package:cloud_text_to_speech/src/google/common/init.dart';
 import 'package:cloud_text_to_speech/src/google/tts/tts_params.dart';
-import 'package:cloud_text_to_speech/src/google/tts/tts_respository.dart';
+import 'package:cloud_text_to_speech/src/google/tts/tts_repository.dart';
 import 'package:cloud_text_to_speech/src/google/voices/voices.dart';
 import 'package:cloud_text_to_speech/src/google/voices/voices_handler.dart';
 
@@ -12,15 +13,16 @@ class TtsGoogle {
   static final AudioHandlerGoogle _audioHandler = AudioHandlerGoogle();
   static final VoicesHandlerGoogle _voicesHandler = VoicesHandlerGoogle();
   static late final RepositoryGoogle repo;
+  static bool initDone = false;
 
   /// MUST be called first before any other call is made.
   ///
-  /// **apiKey** : Google Cloud api key
+  /// **params** : Google Init Params
   ///
   /// **withLogs** : (optional) enable logs. *true* by default
   ///
-  static void init({required String apiKey, bool withLogs = true}) =>
-      _init(apiKey, withLogs);
+  static void init({required InitParamsGoogle params, bool withLogs = true}) =>
+      _init(params.apiKey, withLogs);
 
   ///Get voices
   ///
@@ -30,7 +32,7 @@ class TtsGoogle {
   ///
   /// On failure throws one of the following:
   /// [VoicesFailedBadRequestGoogle], [VoicesFailedBadRequestGoogle], [VoicesFailedUnauthorizedGoogle],
-  /// [VoicesFailedTooManyRequestsGoogle], [VoicesFailedBadGateWayGoogle], [VoicesFailedUnkownErrorGoogle]
+  /// [VoicesFailedTooManyRequestsGoogle], [VoicesFailedBadGateWayGoogle], [VoicesFailedUnknownErrorGoogle]
   ///
   static Future<VoicesSuccessGoogle> getVoices() async {
     return repo.getVoices();
@@ -46,7 +48,7 @@ class TtsGoogle {
   ///
   /// On failure returns one of the following:
   /// [AudioFailedBadRequestGoogle], [AudioFailedUnauthorizedGoogle], [AudioFailedUnsupportedGoogle], [AudioFailedTooManyRequestGoogle],
-  /// [AudioFailedBadGatewayGoogle], [AudioFailedBadGatewayGoogle], [AudioFailedUnkownErrorGoogle]
+  /// [AudioFailedBadGatewayGoogle], [AudioFailedBadGatewayGoogle], [AudioFailedUnknownErrorGoogle]
   ///
   static Future<AudioSuccessGoogle> convertTts(
       TtsParamsGoogle ttsParams) async {
@@ -54,10 +56,15 @@ class TtsGoogle {
   }
 
   static void _init(String apiKey, [bool withLogs = true]) {
-    ConfigGoogle.init(apiKey: apiKey);
-    _initRepository();
-    _initLogs(withLogs);
-    Log.d("Package initialised");
+    if (!initDone) {
+      ConfigGoogle.init(apiKey: apiKey);
+      _initRepository();
+      _initLogs(withLogs);
+      initDone = true;
+      Log.d("TtsGoogle initialised");
+    } else {
+      Log.d("TtsGoogle initialised already!");
+    }
   }
 
   static void _initRepository() {

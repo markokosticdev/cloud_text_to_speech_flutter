@@ -23,7 +23,7 @@ class RepositoryGoogle {
   ///
   /// On failure returns one of the following:
   /// [VoicesFailedBadRequestGoogle], [VoicesFailedBadRequestGoogle], [VoicesFailedUnauthorizedGoogle],
-  /// [VoicesFailedTooManyRequestsGoogle], [VoicesFailedBadGateWayGoogle], [VoicesFailedUnkownErrorGoogle]
+  /// [VoicesFailedTooManyRequestsGoogle], [VoicesFailedBadGateWayGoogle], [VoicesFailedUnknownErrorGoogle]
   Future<VoicesSuccessGoogle> getVoices() async {
     return await voicesHandler.getVoices(
         ApiKeyAuthenticationHeaderGoogle(apiKey: ConfigGoogle.apiKey));
@@ -39,7 +39,7 @@ class RepositoryGoogle {
   ///
   /// On failure returns one of the following:
   /// [AudioFailedBadRequestGoogle], [AudioFailedUnauthorizedGoogle], [AudioFailedUnsupportedGoogle], [AudioFailedTooManyRequestGoogle],
-  /// [AudioFailedBadGatewayGoogle], [AudioFailedBadGatewayGoogle], [AudioFailedUnkownErrorGoogle] or [AzureExceptionGoogle]
+  /// [AudioFailedBadGatewayGoogle], [AudioFailedBadGatewayGoogle], [AudioFailedUnknownErrorGoogle] or [AzureExceptionGoogle]
   Future<AudioSuccessGoogle> convertTts(TtsParamsGoogle ttsParams) async {
     return await audioHandler.getAudio(ttsParams,
         ApiKeyAuthenticationHeaderGoogle(apiKey: ConfigGoogle.apiKey));

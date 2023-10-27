@@ -10,8 +10,9 @@ class AudioClientGoogle extends BaseClient {
 
   @override
   Future<http.StreamedResponse> send(http.BaseRequest request) {
-    request.headers[header.type] = header.value;
+    request.headers[header!.type] = header!.value;
     request.headers['Content-Type'] = "application/json";
+
     return client.send(request);
   }
 }

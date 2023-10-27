@@ -21,7 +21,7 @@ class AudioResponseMapperMicrosoft extends BaseResponseMapper {
       case 502:
         return AudioFailedBadGatewayMicrosoft();
       default:
-        return AudioFailedUnkownErrorMicrosoft(
+        return AudioFailedUnknownErrorMicrosoft(
             code: response.statusCode,
             reason: response.reasonPhrase ?? response.body);
     }

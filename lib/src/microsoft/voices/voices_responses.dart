@@ -44,7 +44,7 @@ class VoicesFailedBadGateWayMicrosoft extends VoicesResponseMicrosoft {
                 "Bad Gateway	Network or server-side issue. May also indicate invalid headers.");
 }
 
-class VoicesFailedUnkownErrorMicrosoft extends VoicesResponseMicrosoft {
-  VoicesFailedUnkownErrorMicrosoft({required int code, required String reason})
+class VoicesFailedUnknownErrorMicrosoft extends VoicesResponseMicrosoft {
+  VoicesFailedUnknownErrorMicrosoft({required int code, required String reason})
       : super(code: code, reason: reason);
 }

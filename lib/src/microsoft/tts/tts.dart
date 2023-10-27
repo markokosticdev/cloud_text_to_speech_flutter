@@ -2,8 +2,9 @@ import 'package:cloud_text_to_speech/src/common/utils/log.dart';
 import 'package:cloud_text_to_speech/src/microsoft/audio/audio_handler.dart';
 import 'package:cloud_text_to_speech/src/microsoft/audio/audio_responses.dart';
 import 'package:cloud_text_to_speech/src/microsoft/common/config.dart';
+import 'package:cloud_text_to_speech/src/microsoft/common/init.dart';
 import 'package:cloud_text_to_speech/src/microsoft/tts/tts_params.dart';
-import 'package:cloud_text_to_speech/src/microsoft/tts/tts_respository.dart';
+import 'package:cloud_text_to_speech/src/microsoft/tts/tts_repository.dart';
 import 'package:cloud_text_to_speech/src/microsoft/voices/voices_handler.dart';
 import 'package:cloud_text_to_speech/src/microsoft/voices/voices_responses.dart';
 
@@ -12,20 +13,17 @@ class TtsMicrosoft {
   static final AudioHandlerMicrosoft _audioHandler = AudioHandlerMicrosoft();
   static final VoicesHandlerMicrosoft _voicesHandler = VoicesHandlerMicrosoft();
   static late final RepositoryMicrosoft repo;
+  static bool initDone = false;
 
   /// MUST be called first before any other call is made.
   ///
-  /// **region** : Microsoft Azure endpoint region
-  ///
-  /// **subscriptionKey** : Microsoft Azure subscription key
+  /// **params** : Microsoft Init Params
   ///
   /// **withLogs** : (optional) enable logs. *true* by default
   ///
   static void init(
-          {required String subscriptionKey,
-          required String region,
-          bool withLogs = true}) =>
-      _init(subscriptionKey, region, withLogs);
+          {required InitParamsMicrosoft params, bool withLogs = true}) =>
+      _init(params.subscriptionKey, params.region, withLogs);
 
   ///Get voices
   ///
@@ -35,7 +33,7 @@ class TtsMicrosoft {
   ///
   /// On failure throws one of the following:
   /// [VoicesFailedBadRequestMicrosoft], [VoicesFailedBadRequestMicrosoft], [VoicesFailedUnauthorizedMicrosoft],
-  /// [VoicesFailedTooManyRequestsMicrosoft], [VoicesFailedBadGateWayMicrosoft], [VoicesFailedUnkownErrorMicrosoft]
+  /// [VoicesFailedTooManyRequestsMicrosoft], [VoicesFailedBadGateWayMicrosoft], [VoicesFailedUnknownErrorMicrosoft]
   ///
   static Future<VoicesSuccessMicrosoft> getVoices() async {
     return repo.getVoices();
@@ -51,7 +49,7 @@ class TtsMicrosoft {
   ///
   /// On failure returns one of the following:
   /// [AudioFailedBadRequestMicrosoft], [AudioFailedUnauthorizedMicrosoft], [AudioFailedUnsupportedMicrosoft], [AudioFailedTooManyRequestMicrosoft],
-  /// [AudioFailedBadGatewayMicrosoft], [AudioFailedBadGatewayMicrosoft], [AudioFailedUnkownErrorMicrosoft]
+  /// [AudioFailedBadGatewayMicrosoft], [AudioFailedBadGatewayMicrosoft], [AudioFailedUnknownErrorMicrosoft]
   ///
   static Future<AudioSuccessMicrosoft> convertTts(
       TtsParamsMicrosoft ttsParams) async {
@@ -60,10 +58,15 @@ class TtsMicrosoft {
 
   static void _init(String subscriptionKey, String region,
       [bool withLogs = true]) {
-    ConfigMicrosoft.init(subscriptionKey: subscriptionKey, region: region);
-    _initRepository();
-    _initLogs(withLogs);
-    Log.d("Package initialised");
+    if (!initDone) {
+      ConfigMicrosoft.init(subscriptionKey: subscriptionKey, region: region);
+      _initRepository();
+      _initLogs(withLogs);
+      initDone = true;
+      Log.d("TtsMicrosoft initialised");
+    } else {
+      Log.d("TtsMicrosoft initialised already!");
+    }
   }
 
   static void _initRepository() {

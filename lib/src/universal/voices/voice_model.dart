@@ -1,4 +1,4 @@
-import '../../../cloud_text_to_speech.dart';
+import 'package:cloud_text_to_speech/src/common/locale/locale_model.dart';
 
 class VoiceUniversal {
   String code;
@@ -7,7 +7,6 @@ class VoiceUniversal {
   String nativeName;
   String gender;
   VoiceLocale locale;
-  String sampleRateHertz;
 
   VoiceUniversal({
     required this.code,
@@ -16,6 +15,5 @@ class VoiceUniversal {
     required this.nativeName,
     required this.gender,
     required this.locale,
-    required this.sampleRateHertz,
   });
 }

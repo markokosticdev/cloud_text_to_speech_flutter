@@ -12,9 +12,10 @@ import 'package:http/http.dart' as http;
 class AudioHandlerGoogle {
   Future<AudioSuccessGoogle> getAudio(AudioRequestParamsGoogle params,
       AuthenticationHeaderGoogle authHeader) async {
+    final client = http.Client();
     final mapper = AudioResponseMapperGoogle();
     final audioClient = AudioClientGoogle(
-      client: http.Client(),
+      client: client,
       authHeader: authHeader,
     );
 
@@ -33,7 +34,7 @@ class AudioHandlerGoogle {
 
       final String bodyJson = jsonEncode(body);
 
-      final response = await audioClient.post(Uri.parse(EndpointsGoogle.audio),
+      final response = await audioClient.post(Uri.parse(EndpointsGoogle.tts),
           body: bodyJson);
       final audioResponse = mapper.map(response);
       if (audioResponse is AudioSuccessGoogle) {

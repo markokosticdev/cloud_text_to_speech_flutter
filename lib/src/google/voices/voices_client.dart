@@ -9,7 +9,8 @@ class VoicesClientGoogle extends BaseClient {
       : super(client: RetryClient(client), header: header);
   @override
   Future<http.StreamedResponse> send(http.BaseRequest request) {
-    request.headers[header.type] = header.headerValue;
+    request.headers[header!.type] = header!.headerValue;
+
     return client.send(request);
   }
 }

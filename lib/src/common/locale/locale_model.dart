@@ -24,4 +24,9 @@ class VoiceLocale {
   });
 
   VoiceLocale.code({required this.code});
+
+  @override
+  String toString() {
+    return 'VoiceLocale{code: $code, name: $name, nativeName: $nativeName, languageCode: $languageCode, languageName: $languageName, nativeLanguageName: $nativeLanguageName, countryCode: $countryCode, countryName: $countryName, nativeCountryName: $nativeCountryName, scriptCode: $scriptCode}';
+  }
 }

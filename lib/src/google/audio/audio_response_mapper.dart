@@ -25,7 +25,7 @@ class AudioResponseMapperGoogle extends BaseResponseMapper {
       case 502:
         return AudioFailedBadGatewayGoogle();
       default:
-        return AudioFailedUnkownErrorGoogle(
+        return AudioFailedUnknownErrorGoogle(
             code: response.statusCode,
             reason: response.reasonPhrase ?? response.body);
     }

@@ -53,7 +53,7 @@ class AudioFailedBadGatewayGoogle extends AudioResponseGoogle {
                 "Bad Gateway	Network or server-side issue. May also indicate invalid headers.");
 }
 
-class AudioFailedUnkownErrorGoogle extends AudioResponseGoogle {
-  AudioFailedUnkownErrorGoogle({required int code, required String reason})
+class AudioFailedUnknownErrorGoogle extends AudioResponseGoogle {
+  AudioFailedUnknownErrorGoogle({required int code, required String reason})
       : super(code: code, reason: reason);
 }

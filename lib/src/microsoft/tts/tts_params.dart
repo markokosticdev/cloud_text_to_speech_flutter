@@ -5,7 +5,6 @@ class TtsParamsMicrosoft extends AudioRequestParamsMicrosoft {
   /// Rate is the speed at which the voice will speak.
   ///
   /// * `rate` default to default.
-
   TtsParamsMicrosoft({
     required VoiceMicrosoft voice,
     required String audioFormat,

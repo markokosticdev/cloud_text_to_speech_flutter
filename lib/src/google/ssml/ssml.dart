@@ -25,14 +25,6 @@ class SsmlGoogle {
 
   String sanitizeSsml(String ssml) {
     Map<String, List<String>> allowedElements = {
-      'break': ['time', 'strength'],
-      'say-as': [
-        'interpret-as',
-        'language',
-        'google:style',
-        'format',
-        'detail'
-      ],
       'audio': [
         'src',
         'clipBegin',
@@ -42,13 +34,10 @@ class SsmlGoogle {
         'repeatDur',
         'soundLevel'
       ],
-      'p': [],
-      's': [],
-      'sub': ['alias'],
-      'mark': ['name'],
+      'break': ['time', 'strength'],
       'emphasis': ['level'],
-      'par': [],
-      'seq': [],
+      'lang': ['xml:lang'],
+      'mark': ['name'],
       'media': [
         'xml:id',
         'begin',
@@ -59,9 +48,20 @@ class SsmlGoogle {
         'fadeInDur',
         'fadeOutDur'
       ],
+      'p': [],
+      'par': [],
       'phoneme': ['alphabet', 'ph'],
+      's': [],
+      'say-as': [
+        'interpret-as',
+        'language',
+        'google:style',
+        'format',
+        'detail'
+      ],
+      'seq': [],
+      'sub': ['alias'],
       'voice': ['name', 'gender', 'variant', 'language', 'ordering'],
-      'lang': ['xml:lang'],
     };
 
     return Helpers.sanitizeSsml(ssml, allowedElements);

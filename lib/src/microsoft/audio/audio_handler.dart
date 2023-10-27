@@ -11,9 +11,10 @@ import 'package:http/http.dart' as http;
 class AudioHandlerMicrosoft {
   Future<AudioSuccessMicrosoft> getAudio(AudioRequestParamsMicrosoft params,
       AuthenticationHeaderMicrosoft authHeader) async {
+    final client = http.Client();
     final mapper = AudioResponseMapperMicrosoft();
     final audioClient = AudioClientMicrosoft(
-        client: http.Client(),
+        client: client,
         authHeader: authHeader,
         audioTypeHeader:
             AudioTypeHeaderMicrosoft(audioFormat: params.audioFormat));
@@ -25,8 +26,8 @@ class AudioHandlerMicrosoft {
           pitch: params.pitch,
           voice: params.voice);
 
-      final response = await audioClient
-          .post(Uri.parse(EndpointsMicrosoft.audio), body: ssml.sanitizedSsml);
+      final response = await audioClient.post(Uri.parse(EndpointsMicrosoft.tts),
+          body: ssml.sanitizedSsml);
       final audioResponse = mapper.map(response);
       if (audioResponse is AudioSuccessMicrosoft) {
         return audioResponse;

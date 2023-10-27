@@ -14,7 +14,10 @@ class VoicesResponseMapperGoogle extends BaseResponseMapper {
     switch (response.statusCode) {
       case 200:
         {
-          final json = jsonDecode(response.body)['voices'] as List<dynamic>;
+          String utfDecodedResponse = utf8.decode(response.bodyBytes);
+
+          final json =
+              jsonDecode(utfDecodedResponse)['voices'] as List<dynamic>;
           var voices = json
               .map((e) => VoiceGoogle.fromJson(e as Map<String, dynamic>))
               .toList(growable: false);
@@ -38,7 +41,7 @@ class VoicesResponseMapperGoogle extends BaseResponseMapper {
       case 502:
         return VoicesFailedBadGateWayGoogle();
       default:
-        return VoicesFailedUnkownErrorGoogle(
+        return VoicesFailedUnknownErrorGoogle(
             code: response.statusCode,
             reason: response.reasonPhrase ?? response.body);
     }

@@ -44,7 +44,7 @@ class VoicesFailedBadGateWayGoogle extends VoicesResponseGoogle {
                 "Bad Gateway	Network or server-side issue. May also indicate invalid headers.");
 }
 
-class VoicesFailedUnkownErrorGoogle extends VoicesResponseGoogle {
-  VoicesFailedUnkownErrorGoogle({required int code, required String reason})
+class VoicesFailedUnknownErrorGoogle extends VoicesResponseGoogle {
+  VoicesFailedUnknownErrorGoogle({required int code, required String reason})
       : super(code: code, reason: reason);
 }

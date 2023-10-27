@@ -53,7 +53,7 @@ class AudioFailedBadGatewayMicrosoft extends AudioResponseMicrosoft {
                 "Bad Gateway	Network or server-side issue. May also indicate invalid headers.");
 }
 
-class AudioFailedUnkownErrorMicrosoft extends AudioResponseMicrosoft {
-  AudioFailedUnkownErrorMicrosoft({required int code, required String reason})
+class AudioFailedUnknownErrorMicrosoft extends AudioResponseMicrosoft {
+  AudioFailedUnknownErrorMicrosoft({required int code, required String reason})
       : super(code: code, reason: reason);
 }

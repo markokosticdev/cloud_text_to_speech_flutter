@@ -1,41 +1,45 @@
 # Cloud Text-To-Speech
 Single interface to Google, Microsoft, and Amazon Text-To-Speech.
 Flutter implementation of: 
-- [Google Cloud Text-To-Speech API](https://cloud.google.com/text-to-speech).
-- [Microsoft Azure Cognitive Text-To-Speech API](https://azure.microsoft.com/en-us/services/cognitive-services/text-to-speech).
-- Amazon Polly API (soon)
+- [Google Cloud Text-To-Speech API](https://cloud.google.com/text-to-speech)
+- [Microsoft Azure Cognitive Text-To-Speech API](https://azure.microsoft.com/en-us/services/cognitive-services/text-to-speech)
+- [Amazon Polly API](https://aws.amazon.com/polly)
 
 
 ## Features
-- Universal implementation for accessing all providers with one interface
-- Separate implementation for every provider so we could access every functionality
-- Sanitize SSML input per provider so we send only supported SSML elements
-- Locale names in English and native language so we could display language selector
-- Fake name generation for Google voices that are generated randomly based on voice locale
-- Accessible configurable output format (per provider), rate, and pitch
+- Universal implementation for accessing all providers with one interface.
+- Separate implementation for every provider so we could access every functionality.
+- Sanitize SSML input per provider so we send only supported SSML elements.
+- Locale names in English and native language so we could display language selector.
+- Fake name generation for Google voices that are generated randomly based on voice locale.
+- Accessible configurable output format (per provider), rate, and pitch.
 
 
 ## Getting Started
 
 There are two ways to use Cloud Text-To-Speech:
-- Universal: Using TtsUniversal to be able to configure the TTS provider dynamically and us it
-- Provider: Using TtsGoogle, TtsMicrosoft, TtsAmazon(soon) to get the most from provider's API
+- Universal: Using TtsUniversal to be able to configure the TTS provider dynamically and us it.
+- Provider: Using TtsGoogle, TtsMicrosoft, TtsAmazon to get the most from provider's API.
 
 ### Universal
 
 To init configuration use:
 ```dart
-  //Do init once and run it before any other method
-  TtsUniversal.init(
-    provider: 'google',
-    google: InitParamsGoogle(apiKey: 'API-KEY'),
-    microsoft: InitParamsMicrosoft(subscriptionKey: 'SUBSCRIPTION-KEY', region: 'eastus'),
-    withLogs: true);
+    //Do init once and run it before any other method
+    TtsUniversal.init(
+        provider: 'amazon',
+        googleParams: InitParamsGoogle(apiKey: 'API-KEY'),
+        microsoftParams: InitParamsMicrosoft(
+        subscriptionKey: 'SUBSCRIPTION-KEY', region: 'eastus'),
+        amazonParams: InitParamsAmazon(
+        keyId: 'KEY-ID', accessKey: 'ACCESS-KEY', region: 'us-east-1'),
+        withLogs: true
+    );
 ```
 
 To change provider use:
 ```dart
-    TtsUniversal.setProvider(provider: 'microsoft');
+    TtsUniversal.setProvider('microsoft');
 ```
 
 To get the list of all voices use:
@@ -43,13 +47,13 @@ To get the list of all voices use:
 ```dart
     // Get voices
     final voicesResponse = await TtsUniversal.getVoices();
-    final voices = voicesResponse.voices; 
-    
+    final voices = voicesResponse.voices;
+
     //Print all available voices
     print(voices);
 
     //Pick an English Voice
-    final voice = voicesResponse.voices
+    final voice = voices
       .where((element) => element.locale.code.startsWith("en-"))
       .toList(growable: false)
       .first;
@@ -58,22 +62,21 @@ To get the list of all voices use:
 To convert TTS and get audio use:
 
 ```dart
-   //Generate Audio for a text
-  final text = '<speak>Google and Microsoft<break time="2s"> Speech Service Text-to-Speech API are awesome!</speak>';
+    //Generate Audio for a text
+    const text = "Amazon, Microsoft and Google Text-to-Speech API are awesome";
 
-  TtsParamsUniversal params = TtsParamsUniversal(
-      voice: voice,
-      audioFormatGoogle: AudioOutputFormatGoogle.mp3,
-      audioFormatMicrosoft: AudioOutputFormatMicrosoft.audio48Khz192kBitrateMonoMp3,
-      text: text,
-      rate: 'slow', // optional
-      pitch: 'default' // optional
-  );
-
-  final ttsResponse = await TtsUniversal.convertTts(params);
-
-  //Get the audio bytes.
-  final audioBytes = ttsResponse.audio.buffer.asByteData();
+    final ttsParams = TtsParamsUniversal(
+        voice: voice,
+        audioFormat: AudioOutputFormatUniversal.mp3_64k,
+        text: text,
+        rate: 'slow', // optional
+        pitch: 'default' // optional
+    );
+    
+    final ttsResponse = await TtsUniversal.convertTts(ttsParams);
+    
+    //Get the audio bytes.
+    final audioBytes = ttsResponse.audio.buffer.asByteData();
 ```
 
 
@@ -82,9 +85,7 @@ To convert TTS and get audio use:
 To init configuration use:
 ```dart
     //Do init once and run it before any other method
-    TtsGoogle.init(
-      apiKey: "API-KEY", 
-      withLogs: true);
+    TtsGoogle.init(params: InitParamsGoogle(apiKey: "API-KEY"), withLogs: true);
 ```
 
 To get the list of all voices use:
@@ -92,16 +93,16 @@ To get the list of all voices use:
 ```dart
     // Get voices
     final voicesResponse = await TtsGoogle.getVoices();
-    final voices = voicesResponse.voices; 
-    
-    //Print all available voices
+    final voices = voicesResponse.voices;
+
+    //Print all voices
     print(voices);
 
     //Pick an English Voice
-    final voice = voicesResponse.voices
-      .where((element) => element.locale.code.startsWith("en-"))
-      .toList(growable: false)
-      .first;
+    final voice = voices
+        .where((element) => element.locale.code.startsWith("en-"))
+        .toList(growable: false)
+        .first;
 ```
 
 To convert TTS and get audio use:
@@ -110,7 +111,7 @@ To convert TTS and get audio use:
    //Generate Audio for a text
   final text = '<speak>Google<break time="2s"> Speech Service Text-to-Speech API is awesome!</speak>';
 
-  TtsParamsGoogle params = TtsParamsGoogle(
+  TtsParamsGoogle ttsParams = TtsParamsGoogle(
       voice: voice,
       audioFormat: AudioOutputFormatGoogle.mp3,
       text: text,
@@ -118,7 +119,7 @@ To convert TTS and get audio use:
       pitch: 'default' // optional
   );
 
-  final ttsResponse = await TtsGoogle.convertTts(params);
+  final ttsResponse = await TtsGoogle.convertTts(ttsParams);
 
   //Get the audio bytes.
   final audioBytes = ttsResponse.audio.buffer.asByteData();
@@ -129,11 +130,12 @@ To convert TTS and get audio use:
 
 To init configuration use:
 ```dart
-  //Do init once and run it before any other method
-  TtsMicrosoft.init(
-    subscriptionKey: "SUBSCRIPTION-KEY", 
-    region: "eastus", 
-    withLogs: true);
+    //Do init once and run it before any other method
+    TtsMicrosoft.init(
+        params: InitParamsMicrosoft(
+        subscriptionKey: "SUBSCRIPTION-KEY", region: "eastus"),
+        withLogs: true
+    );
 ```
 
 To get the list of all voices use:
@@ -141,16 +143,16 @@ To get the list of all voices use:
 ```dart
     // Get voices
     final voicesResponse = await TtsMicrosoft.getVoices();
-    final voices = voicesResponse.voices; 
-    
-    //Print all available voices
+    final voices = voicesResponse.voices;
+
+    //Print all voices
     print(voices);
 
     //Pick an English Voice
-    final voice = voicesResponse.voices
-      .where((element) => element.locale.code.startsWith("en-"))
-      .toList(growable: false)
-      .first;
+    final voice = voices
+        .where((element) => element.locale.code.startsWith("en-"))
+        .toList(growable: false)
+        .first;
 ```
 
 To convert TTS and get audio use:
@@ -159,7 +161,7 @@ To convert TTS and get audio use:
    //Generate Audio for a text
   final text = '<speak>Microsoft<break time="2s"> Speech Service Text-to-Speech API is awesome!</speak>';
 
-  TtsParamsMicrosoft params = TtsParamsMicrosoft(
+  TtsParamsMicrosoft ttsParams = TtsParamsMicrosoft(
       voice: voice,
       audioFormat: AudioOutputFormatMicrosoft.audio48Khz192kBitrateMonoMp3,
       text: text,
@@ -167,8 +169,67 @@ To convert TTS and get audio use:
       pitch: 'default' // optional
   );
 
-  final ttsResponse = await TtsMicrosoft.convertTts(params);
+  final ttsResponse = await TtsMicrosoft.convertTts(ttsParams);
 
   //Get the audio bytes.
   final audioBytes = ttsResponse.audio.buffer.asByteData();
 ```
+
+
+
+### Amazon
+
+To init configuration use:
+```dart
+    //Do init once and run it before any other method
+    TtsAmazon.init(
+        params: InitParamsAmazon(keyId: 'KEY-ID', accessKey: 'ACCESS-KEY', region: 'us-east-1'),
+        withLogs: true
+    );
+```
+
+To get the list of all voices use:
+
+```dart
+    // Get voices
+    final voicesResponse = await TtsAmazon.getVoices();
+    final voices = voicesResponse.voices;
+
+    //Print all voices
+    print(voices);
+
+    //Pick an English Voice
+    final voice = voices
+        .where((element) => element.locale.code.startsWith("en-"))
+        .toList(growable: false)
+        .first;
+```
+
+To convert TTS and get audio use:
+
+```dart
+   //Generate Audio for a text
+  final text = '<speak>Amazon<break time="2s"> Speech Service Text-to-Speech API is awesome!</speak>';
+
+  TtsParamsAmazon ttsParams = TtsParamsAmazon(
+      voice: voice,
+      audioFormat: AudioOutputFormatAmazon.audio48Khz192kBitrateMonoMp3,
+      text: text,
+      rate: 'slow', // optional
+      pitch: 'default' // optional
+  );
+
+  final ttsResponse = await TtsAmazon.convertTts(ttsParams);
+
+  //Get the audio bytes.
+  final audioBytes = ttsResponse.audio.buffer.asByteData();
+```
+
+## Notes
+
+There are things you should take care of:
+- Securing of your API keys and credentials, they could be extracted from your mobile app.
+- Sometimes Amazon Polly is not working in emulator, so you could get 403 error.
+- For fixing SSML/XML you before passing it to TTS Params you could use the [xml](https://pub.dev/packages/xml) packages, method `XmlDocument.parse(ssml).toXmlString()`.
+- Audio has uniform format for all providers, it is Uint8List that you could use to play it or save it to file.
+- Some player packages that are good fit are: [audioplayers](https://pub.dev/packages/audioplayers) and [assets_audio_player](https://pub.dev/packages/assets_audio_player).
