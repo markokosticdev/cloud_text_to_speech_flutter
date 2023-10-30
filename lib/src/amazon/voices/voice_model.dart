@@ -1,11 +1,10 @@
 import 'dart:ui';
 
+import 'package:cloud_text_to_speech/src/common/locale/locale_helpers.dart';
 import 'package:cloud_text_to_speech/src/common/tts/tts_providers.dart';
-import 'package:cloud_text_to_speech/src/common/utils/helpers.dart';
 import 'package:cloud_text_to_speech/src/common/locale/locale_model.dart';
 import 'package:cloud_text_to_speech/src/universal/voices/voice_model.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:locale_names/locale_names.dart';
 
 part 'voice_model.g.dart';
 
@@ -53,8 +52,8 @@ class VoiceAmazon extends VoiceUniversal {
       _$VoiceAmazonFromJson(json);
 
   static List<String> _toEngines(List<dynamic> supportedEngines) {
-    if (supportedEngines.isNotEmpty && supportedEngines is List<String>) {
-      return supportedEngines.map((e) => e.toLowerCase()).toList();
+    if (supportedEngines.isNotEmpty) {
+      return supportedEngines.map((e) => (e as String).toLowerCase()).toList();
     }
     return [];
   }
@@ -69,20 +68,8 @@ class VoiceAmazon extends VoiceUniversal {
   static VoiceLocale _toLocale(String locale) {
     List<String> localeSegments = locale.split('-');
 
-    Locale localeObj = Helpers.segmentsToLocale(localeSegments);
+    Locale localeObj = VoiceLocaleHelpers.segmentsToLocale(localeSegments);
 
-    return VoiceLocale(
-        code: localeSegments.join('-'),
-        name: Helpers.formatLanguageCountry(
-            localeObj.defaultDisplayLanguage, localeObj.defaultDisplayCountry),
-        nativeName: Helpers.formatLanguageCountry(
-            localeObj.nativeDisplayLanguage, localeObj.nativeDisplayCountry),
-        languageCode: localeObj.languageCode,
-        languageName: localeObj.defaultDisplayLanguage,
-        nativeLanguageName: localeObj.nativeDisplayLanguage,
-        countryCode: localeObj.countryCode,
-        countryName: localeObj.defaultDisplayCountry,
-        nativeCountryName: localeObj.nativeDisplayCountry,
-        scriptCode: localeObj.scriptCode);
+    return VoiceLocaleHelpers.localeToVoiceLocale(localeObj);
   }
 }

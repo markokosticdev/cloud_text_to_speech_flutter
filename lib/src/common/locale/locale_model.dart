@@ -9,6 +9,8 @@ class VoiceLocale {
   String? countryName;
   String? nativeCountryName;
   String? scriptCode;
+  String? scriptName;
+  String? nativeScriptName;
 
   VoiceLocale({
     required this.code,
@@ -21,12 +23,14 @@ class VoiceLocale {
     required this.countryName,
     required this.nativeCountryName,
     required this.scriptCode,
+    required this.scriptName,
+    required this.nativeScriptName,
   });
 
   VoiceLocale.code({required this.code});
 
   @override
   String toString() {
-    return 'VoiceLocale{code: $code, name: $name, nativeName: $nativeName, languageCode: $languageCode, languageName: $languageName, nativeLanguageName: $nativeLanguageName, countryCode: $countryCode, countryName: $countryName, nativeCountryName: $nativeCountryName, scriptCode: $scriptCode}';
+    return 'VoiceLocale{code: $code, name: $name, nativeName: $nativeName, languageCode: $languageCode, languageName: $languageName, nativeLanguageName: $nativeLanguageName, countryCode: $countryCode, countryName: $countryName, nativeCountryName: $nativeCountryName, scriptCode: $scriptCode, scriptName: $scriptName, nativeScriptName: $nativeScriptName}';
   }
 }

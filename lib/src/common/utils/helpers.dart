@@ -7,51 +7,6 @@ import 'package:xml/xml.dart';
 class Helpers {
   Helpers._();
 
-  static Locale segmentsToLocale(List<String> localeSegments) {
-    Map<String, String> languageCodeMap = {
-      'cmn': 'zh',
-      'arb': 'ar',
-    };
-
-    Map<String, String> countryCodeMap = {
-      'guangxi': 'CN',
-      'henan': 'CN',
-      'liaoning': 'CN',
-      'shaanxi': 'CN',
-      'shandong': 'CN',
-      'sichuan': 'CN',
-    };
-
-    String? languageCode = localeSegments[0];
-    String? scriptCode = localeSegments.length == 3 ? localeSegments[1] : null;
-    String? countryCode = localeSegments.length == 3
-        ? localeSegments[2]
-        : localeSegments.length == 2
-            ? localeSegments[1]
-            : null;
-
-    languageCode = languageCodeMap[languageCode] ?? languageCode;
-    countryCode = countryCodeMap[countryCode] ?? countryCode;
-
-    return Locale.fromSubtags(
-      languageCode: languageCode,
-      scriptCode: scriptCode,
-      countryCode: countryCode,
-    );
-  }
-
-  static String? formatLanguageCountry(String? language, String? country) {
-    if (language == null && country == null) {
-      return null;
-    } else if (country == null || country.isEmpty) {
-      return language;
-    } else if (language == null || country.isEmpty) {
-      return null;
-    } else {
-      return '$language ($country)';
-    }
-  }
-
   static String sanitizeSsml(
       String ssml, Map<String, List<String>> allowedElements) {
     if (!ssml.trim().startsWith("<speak")) {

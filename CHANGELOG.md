@@ -47,3 +47,9 @@
 * Add provider to voice models
 * Add engines to voice models
 * Add initDone getters
+
+## 2.2.0
+* Add scriptName to voice locale
+* Add nativeScriptName to voice locale
+* Fix segments to locale mapping
+* Fix Amazon voice engines mapping
