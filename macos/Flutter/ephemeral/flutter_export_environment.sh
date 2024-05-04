@@ -1,11 +1,11 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
 export "FLUTTER_ROOT=/Users/marko/.flutter-sdk"
-export "FLUTTER_APPLICATION_PATH=/Users/marko/StudioProjects/cloud_text_to_speech"
+export "FLUTTER_APPLICATION_PATH=/Users/marko/Google Drive/HT/Solutions/ZenBrains/Projects/Cloud Text-to-Speech/Source Code/cloud_text_to_speech_flutter"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_BUILD_DIR=build"
-export "FLUTTER_BUILD_NAME=2.0.0"
-export "FLUTTER_BUILD_NUMBER=2.0.0"
+export "FLUTTER_BUILD_NAME=2.2.1"
+export "FLUTTER_BUILD_NUMBER=2.2.1"
 export "DART_OBFUSCATION=false"
 export "TRACK_WIDGET_CREATION=true"
 export "TREE_SHAKE_ICONS=false"

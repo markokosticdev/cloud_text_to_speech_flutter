@@ -53,3 +53,7 @@
 * Add nativeScriptName to voice locale
 * Fix segments to locale mapping
 * Fix Amazon voice engines mapping
+
+## 2.2.1
+* Update repository name
+* Update locale_names dependency
