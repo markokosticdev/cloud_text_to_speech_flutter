@@ -13,7 +13,7 @@ dependencies:
   http:
   json_annotation: ^4.8.1
   build_runner: ^2.4.6
-  locale_names: ^1.0.0
+  locale_names: ^1.1.1
   xml: ^6.3.0
   sigv4: ^5.0.0
 
