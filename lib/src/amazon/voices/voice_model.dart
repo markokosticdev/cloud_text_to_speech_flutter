@@ -1,8 +1,8 @@
 import 'dart:ui';
 
 import 'package:cloud_text_to_speech/src/common/locale/locale_helpers.dart';
-import 'package:cloud_text_to_speech/src/common/tts/tts_providers.dart';
 import 'package:cloud_text_to_speech/src/common/locale/locale_model.dart';
+import 'package:cloud_text_to_speech/src/common/tts/tts_providers.dart';
 import 'package:cloud_text_to_speech/src/universal/voices/voice_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -16,10 +16,6 @@ class VoiceAmazon extends VoiceUniversal {
   List<String> engines;
   @JsonKey(name: "Id", includeToJson: false)
   String code;
-  @Deprecated("Use engines instead")
-  @JsonKey(
-      name: "SupportedEngines", fromJson: _toVoiceType, includeToJson: false)
-  String voiceType;
   @JsonKey(name: "Id", includeToJson: false)
   String name;
   @JsonKey(name: "Name", includeToJson: false)
@@ -33,7 +29,6 @@ class VoiceAmazon extends VoiceUniversal {
       {this.provider = TtsProviders.amazon,
       required this.engines,
       required this.code,
-      required this.voiceType,
       required this.name,
       required this.nativeName,
       required this.gender,
@@ -42,7 +37,6 @@ class VoiceAmazon extends VoiceUniversal {
             provider: provider,
             engines: engines,
             code: code,
-            voiceType: voiceType,
             name: name,
             nativeName: nativeName,
             gender: gender,
@@ -58,15 +52,8 @@ class VoiceAmazon extends VoiceUniversal {
     return [];
   }
 
-  static String _toVoiceType(List<dynamic> supportedEngines) {
-    if (supportedEngines.isNotEmpty) {
-      return supportedEngines[0];
-    }
-    return '';
-  }
-
-  static VoiceLocale _toLocale(String locale) {
-    List<String> localeSegments = locale.split('-');
+  static VoiceLocale _toLocale(String languageCode) {
+    List<String> localeSegments = languageCode.split('-');
 
     Locale localeObj = VoiceLocaleHelpers.segmentsToLocale(localeSegments);
 

@@ -1,10 +1,10 @@
 import 'dart:convert';
 
+import 'package:cloud_text_to_speech/src/amazon/voices/voice_model.dart';
+import 'package:cloud_text_to_speech/src/amazon/voices/voices_responses.dart';
 import 'package:cloud_text_to_speech/src/common/http/base_response.dart';
 import 'package:cloud_text_to_speech/src/common/http/base_response_mapper.dart';
 import 'package:cloud_text_to_speech/src/common/utils/helpers.dart';
-import 'package:cloud_text_to_speech/src/amazon/voices/voice_model.dart';
-import 'package:cloud_text_to_speech/src/amazon/voices/voices_responses.dart';
 import 'package:http/http.dart' as http;
 
 class VoicesResponseMapperAmazon extends BaseResponseMapper {
@@ -23,7 +23,7 @@ class VoicesResponseMapperAmazon extends BaseResponseMapper {
 
           voices = Helpers.removeVoiceDuplicates(voices);
 
-          Helpers.sortVoices(voices);
+          voices = Helpers.sortVoices(voices);
 
           return VoicesSuccessAmazon(voices: voices);
         }

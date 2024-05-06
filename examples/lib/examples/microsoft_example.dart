@@ -21,7 +21,8 @@ void main() async {
         .first;
 
     //Generate Audio for a text
-    final text = "Microsoft Text-to-Speech API is awesome";
+    final text =
+        '<break time="2s" bre="34"/>Microsoft <some time="3s"/> Text-to-Speech API is awesome';
 
     TtsParamsMicrosoft ttsParams = TtsParamsMicrosoft(
         voice: voice,

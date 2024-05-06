@@ -1,11 +1,11 @@
+import 'package:cloud_text_to_speech/src/amazon/tts/tts_params.dart';
+import 'package:cloud_text_to_speech/src/amazon/voices/voice_model.dart';
 import 'package:cloud_text_to_speech/src/google/tts/tts_params.dart';
 import 'package:cloud_text_to_speech/src/google/voices/voice_model.dart';
 import 'package:cloud_text_to_speech/src/microsoft/tts/tts_params.dart';
 import 'package:cloud_text_to_speech/src/microsoft/voices/voice_model.dart';
-import 'package:cloud_text_to_speech/src/amazon/tts/tts_params.dart';
-import 'package:cloud_text_to_speech/src/amazon/voices/voice_model.dart';
-import 'package:cloud_text_to_speech/src/universal/tts/tts_params.dart';
 import 'package:cloud_text_to_speech/src/universal/audio/audio_output_format_mapper.dart';
+import 'package:cloud_text_to_speech/src/universal/tts/tts_params.dart';
 
 class TtsParamsMapper {
   static TtsParamsGoogle toGoogle(TtsParamsUniversal universalParams) {
@@ -13,7 +13,6 @@ class TtsParamsMapper {
       voice: VoiceGoogle(
         engines: universalParams.voice.engines,
         code: universalParams.voice.code,
-        voiceType: universalParams.voice.voiceType,
         name: universalParams.voice.name,
         nativeName: universalParams.voice.nativeName,
         gender: universalParams.voice.gender,
@@ -32,7 +31,6 @@ class TtsParamsMapper {
       voice: VoiceMicrosoft(
         engines: universalParams.voice.engines,
         code: universalParams.voice.code,
-        voiceType: universalParams.voice.voiceType,
         name: universalParams.voice.name,
         nativeName: universalParams.voice.nativeName,
         gender: universalParams.voice.gender,
@@ -51,7 +49,6 @@ class TtsParamsMapper {
       voice: VoiceAmazon(
         engines: universalParams.voice.engines,
         code: universalParams.voice.code,
-        voiceType: universalParams.voice.voiceType,
         name: universalParams.voice.name,
         nativeName: universalParams.voice.nativeName,
         gender: universalParams.voice.gender,

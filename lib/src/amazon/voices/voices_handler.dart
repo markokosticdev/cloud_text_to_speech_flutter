@@ -1,4 +1,3 @@
-import 'package:cloud_text_to_speech/src/amazon/auth/authentication_types.dart';
 import 'package:cloud_text_to_speech/src/amazon/common/constants.dart';
 import 'package:cloud_text_to_speech/src/amazon/voices/voices_client.dart';
 import 'package:cloud_text_to_speech/src/amazon/voices/voices_response_mapper.dart';

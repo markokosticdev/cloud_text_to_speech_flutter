@@ -1,6 +1,6 @@
+import 'package:cloud_text_to_speech/src/amazon/audio/audio_responses.dart';
 import 'package:cloud_text_to_speech/src/common/http/base_response.dart';
 import 'package:cloud_text_to_speech/src/common/http/base_response_mapper.dart';
-import 'package:cloud_text_to_speech/src/amazon/audio/audio_responses.dart';
 import 'package:http/http.dart' as http;
 
 class AudioResponseMapperAmazon extends BaseResponseMapper {

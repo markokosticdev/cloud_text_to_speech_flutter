@@ -8,7 +8,7 @@
 
 @implementation GeneratedPluginRegistrant
 
-+ (void)registerWithRegistry:(NSObject<FlutterPluginRegistry>*)registry {
++ (void)registerWithRegistry:(NSObject <FlutterPluginRegistry> *)registry {
 }
 
 @end

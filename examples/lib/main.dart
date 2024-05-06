@@ -86,8 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
               text: text,
               rate: 'slow',
               // optional
-              pitch: 'default' // optional
-              );
+              pitch: 'default');
 
           final ttsResponseGoogle = await TtsGoogle.convertTts(paramsGoogle);
 
@@ -135,9 +134,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   AudioOutputFormatMicrosoft.audio48Khz192kBitrateMonoMp3,
               text: text,
               rate: 'slow',
-              // optional
-              pitch: 'default' // optional
-              );
+              pitch: 'default');
 
           final ttsResponseMicrosoft =
               await TtsMicrosoft.convertTts(paramsMicrosoft);
@@ -185,8 +182,7 @@ class _MyHomePageState extends State<MyHomePage> {
               text: text,
               rate: 'slow',
               // optional
-              pitch: 'default' // optional
-              );
+              pitch: 'default');
 
           final ttsResponseAmazon = await TtsAmazon.convertTts(paramsAmazon);
 
@@ -238,9 +234,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 voice: voiceUniversal,
                 audioFormat: AudioOutputFormatUniversal.mp3_64k,
                 text: text,
-                rate: 'slow', // optional
-                pitch: 'default' // optional
-                );
+                rate: 'slow',
+                // optional
+                pitch: 'default');
 
             final ttsResponse = await TtsUniversal.convertTts(ttsParams);
 
@@ -292,9 +288,9 @@ class _MyHomePageState extends State<MyHomePage> {
               voice: voiceUniversal,
               audioFormat: AudioOutputFormatUniversal.mp3_64k,
               text: text,
-              rate: 'slow', // optional
-              pitch: 'default' // optional
-              );
+              rate: 'slow',
+              // optional
+              pitch: 'default');
 
           final ttsResponse = await TtsUniversal.convertTts(ttsParams);
 

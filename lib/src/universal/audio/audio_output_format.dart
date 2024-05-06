@@ -7,7 +7,8 @@ class AudioOutputFormatUniversal {
   static const String mp3_32k = "mp3-32k";
   static const String mp3_64k = "mp3-64k";
   static const String mp3_128k = "mp3-128k";
+
   // static const String oggVorbis = "ogg-vorbis";
   static const String mulaw = "mulaw";
-  // static const String alaw = "alaw";
+// static const String alaw = "alaw";
 }

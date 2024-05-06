@@ -13,11 +13,11 @@ class AudioHandlerGoogle {
   Future<AudioSuccessGoogle> getAudio(AudioRequestParamsGoogle params,
       AuthenticationHeaderGoogle authHeader) async {
     final client = http.Client();
-    final mapper = AudioResponseMapperGoogle();
     final audioClient = AudioClientGoogle(
       client: client,
       authHeader: authHeader,
     );
+    final mapper = AudioResponseMapperGoogle();
 
     try {
       final ssml =

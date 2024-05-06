@@ -16,11 +16,16 @@ class SsmlGoogle {
   }
 
   String ssmlRoot(String ssml) {
-    return '<speak version="1.0" '
-        'xmlns="http://www.w3.org/2001/10/synthesis">'
+    String ssmlWithRoot =
+        '<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis">'
         '<prosody rate="$rate" pitch="$pitch">'
         '$ssml'
-        '</prosody></speak>';
+        '</prosody>'
+        '</speak>';
+
+    return ssmlWithRoot
+        .replaceAll(RegExp(r'\s*\n\s*'), '')
+        .replaceAll(RegExp(r'\s*(<[^>]+>)\s*'), '\$1');
   }
 
   String sanitizeSsml(String ssml) {

@@ -1,12 +1,12 @@
-import 'package:cloud_text_to_speech/src/amazon/common/init.dart';
-import 'package:cloud_text_to_speech/src/common/utils/log.dart';
 import 'package:cloud_text_to_speech/src/amazon/audio/audio_handler.dart';
 import 'package:cloud_text_to_speech/src/amazon/audio/audio_responses.dart';
 import 'package:cloud_text_to_speech/src/amazon/common/config.dart';
+import 'package:cloud_text_to_speech/src/amazon/common/init.dart';
 import 'package:cloud_text_to_speech/src/amazon/tts/tts_params.dart';
 import 'package:cloud_text_to_speech/src/amazon/tts/tts_repository.dart';
 import 'package:cloud_text_to_speech/src/amazon/voices/voices_handler.dart';
 import 'package:cloud_text_to_speech/src/amazon/voices/voices_responses.dart';
+import 'package:cloud_text_to_speech/src/common/utils/log.dart';
 
 ///Helper class for Amazon TTS requests
 class TtsAmazon {

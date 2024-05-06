@@ -8,6 +8,7 @@ class VoicesClientMicrosoft extends BaseClient {
       {required http.Client client,
       required AuthenticationHeaderMicrosoft header})
       : super(client: RetryClient(client), header: header);
+
   @override
   Future<http.StreamedResponse> send(http.BaseRequest request) {
     request.headers[header!.type] = header!.headerValue;

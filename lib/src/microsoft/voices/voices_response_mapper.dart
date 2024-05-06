@@ -22,7 +22,7 @@ class VoicesResponseMapperMicrosoft extends BaseResponseMapper {
 
           voices = Helpers.removeVoiceDuplicates(voices);
 
-          Helpers.sortVoices(voices);
+          voices = Helpers.sortVoices(voices);
 
           return VoicesSuccessMicrosoft(voices: voices);
         }

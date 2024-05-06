@@ -2,16 +2,19 @@ import 'package:cloud_text_to_speech/cloud_text_to_speech.dart';
 
 void main() async {
   try {
-    TtsAmazon.init(
-        params: InitParamsAmazon(
+    TtsUniversal.init(
+        provider: TtsProviders.combine,
+        googleParams: InitParamsGoogle(apiKey: 'API-KEY'),
+        microsoftParams: InitParamsMicrosoft(
+            subscriptionKey: 'SUBSCRIPTION-KEY', region: 'eastus'),
+        amazonParams: InitParamsAmazon(
             keyId: 'KEY-ID', accessKey: 'ACCESS-KEY', region: 'us-east-1'),
         withLogs: true);
 
-    // Get voices
-    final voicesResponse = await TtsAmazon.getVoices();
+    final voicesResponse = await TtsUniversal.getVoices();
     final voices = voicesResponse.voices;
 
-    //Print all voices
+    //Print all available voices
     print(voices);
 
     //Pick an English Voice
@@ -22,18 +25,18 @@ void main() async {
 
     //Generate Audio for a text
     final text =
-        '<break time="2s" bre="34"/>Amazon <some time="3s"/> Text-to-Speech API is awesome';
+        '<break time="2s" bre="34"/>Combine Universal <some time="3s"/> Text-to-Speech API is awesome';
 
-    TtsParamsAmazon ttsParams = TtsParamsAmazon(
+    final ttsParams = TtsParamsUniversal(
         voice: voice,
-        audioFormat: AudioOutputFormatAmazon.mp3,
+        audioFormat: AudioOutputFormatUniversal.mp3_64k,
         text: text,
         rate: 'slow',
         // optional
         pitch: 'default' // optional
         );
 
-    final ttsResponse = await TtsAmazon.convertTts(ttsParams);
+    final ttsResponse = await TtsUniversal.convertTts(ttsParams);
 
     //Get the audio bytes.
     final audioBytes = ttsResponse.audio.buffer

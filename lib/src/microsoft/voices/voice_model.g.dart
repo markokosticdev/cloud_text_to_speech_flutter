@@ -11,7 +11,6 @@ VoiceMicrosoft _$VoiceMicrosoftFromJson(Map<String, dynamic> json) =>
       provider: json['provider'] as String? ?? TtsProviders.microsoft,
       engines: VoiceMicrosoft._toEngines(json['VoiceType'] as String),
       code: json['ShortName'] as String,
-      voiceType: json['VoiceType'] as String,
       name: json['DisplayName'] as String,
       nativeName: json['LocalName'] as String,
       gender: json['Gender'] as String,

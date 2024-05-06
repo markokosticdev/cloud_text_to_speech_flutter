@@ -1,6 +1,6 @@
+import 'package:cloud_text_to_speech/src/amazon/audio/audio_output_format.dart';
 import 'package:cloud_text_to_speech/src/google/audio/audio_output_format.dart';
 import 'package:cloud_text_to_speech/src/microsoft/audio/audio_output_format.dart';
-import 'package:cloud_text_to_speech/src/amazon/audio/audio_output_format.dart';
 
 import 'audio_output_format.dart';
 
@@ -63,7 +63,7 @@ class AudioOutputFormatMapper {
         return AudioOutputFormatAmazon.mp3;
       // case AudioOutputFormatUniversal.oggVorbis:
       //   return AudioOutputFormatAmazon.oggVorbis;
-      case AudioOutputFormatUniversal.mulaw:
+      // case AudioOutputFormatUniversal.mulaw:
       // case AudioOutputFormatUniversal.alaw:
       //   return null;  // Amazon does not support mu-law and A-law
       default:

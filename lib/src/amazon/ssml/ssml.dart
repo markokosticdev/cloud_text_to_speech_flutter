@@ -1,5 +1,4 @@
 import 'package:cloud_text_to_speech/src/common/utils/helpers.dart';
-import 'package:cloud_text_to_speech/src/amazon/voices/voice_model.dart';
 
 class SsmlAmazon {
   SsmlAmazon({required this.text, required this.rate, required this.pitch});

@@ -61,7 +61,6 @@ class VoiceLocaleHelpers {
       case 4:
         scriptCode = localeSegments[1];
         countryCode = localeSegments[2];
-      default:
         break;
     }
 

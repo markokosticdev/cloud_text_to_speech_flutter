@@ -7,7 +7,8 @@ class VoicesResponseUniversal extends BaseResponse {
 }
 
 class VoicesSuccessUniversal extends VoicesResponseUniversal {
+  final List<VoiceUniversal> voices;
+
   VoicesSuccessUniversal({required this.voices, required code, required reason})
       : super(code: code, reason: reason);
-  final List<VoiceUniversal> voices;
 }

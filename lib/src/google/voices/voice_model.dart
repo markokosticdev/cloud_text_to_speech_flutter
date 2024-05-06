@@ -1,8 +1,8 @@
 import 'dart:ui';
 
 import 'package:cloud_text_to_speech/src/common/locale/locale_helpers.dart';
-import 'package:cloud_text_to_speech/src/common/tts/tts_providers.dart';
 import 'package:cloud_text_to_speech/src/common/locale/locale_model.dart';
+import 'package:cloud_text_to_speech/src/common/tts/tts_providers.dart';
 import 'package:cloud_text_to_speech/src/universal/voices/voice_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -16,9 +16,6 @@ class VoiceGoogle extends VoiceUniversal {
   List<String> engines;
   @JsonKey(name: "name", includeToJson: false)
   String code;
-  @Deprecated("Use engines instead")
-  @JsonKey(name: "name", fromJson: _toVoiceType, includeToJson: false)
-  String voiceType;
   @JsonKey(name: "name", includeToJson: false)
   String name;
   @JsonKey(name: "name", includeToJson: false)
@@ -37,7 +34,6 @@ class VoiceGoogle extends VoiceUniversal {
     this.provider = TtsProviders.google,
     required this.engines,
     required this.code,
-    required this.voiceType,
     required this.name,
     required this.nativeName,
     required this.gender,
@@ -47,7 +43,6 @@ class VoiceGoogle extends VoiceUniversal {
             provider: provider,
             engines: engines,
             code: code,
-            voiceType: voiceType,
             name: name,
             nativeName: nativeName,
             gender: gender,
@@ -59,11 +54,6 @@ class VoiceGoogle extends VoiceUniversal {
   static List<String> _toEngines(String name) {
     List<String> nameSegments = name.split('-');
     return [nameSegments[2].toLowerCase()];
-  }
-
-  static String _toVoiceType(String name) {
-    List<String> nameSegments = name.split('-');
-    return nameSegments[2];
   }
 
   static String _toGender(String ssmlGender) {

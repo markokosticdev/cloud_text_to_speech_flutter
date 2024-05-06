@@ -1,5 +1,5 @@
-import 'package:cloud_text_to_speech/src/common/http/base_client.dart';
 import 'package:cloud_text_to_speech/src/amazon/common/config.dart';
+import 'package:cloud_text_to_speech/src/common/http/base_client.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/retry.dart';
 import 'package:sigv4/sigv4.dart';

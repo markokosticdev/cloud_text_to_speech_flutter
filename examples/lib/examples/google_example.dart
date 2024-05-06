@@ -19,7 +19,7 @@ void main() async {
 
     //Generate Audio for a text
     final text =
-        '<break time="2s" bre="34"/>Google <top>and</top> Microsoft <some time="3s"/> Text-to-Speech API are awesome';
+        '<break time="2s" bre="34"/>Google <some time="3s"/> Text-to-Speech API is awesome';
 
     TtsParamsGoogle ttsParams = TtsParamsGoogle(
         voice: voice,

@@ -10,9 +10,7 @@ abstract class BaseHeader {
 
   String get value => _value;
 
-  ///Returns the header type
   String get type => _type;
 
-  ///Returns the value of the header field
   String get headerValue;
 }

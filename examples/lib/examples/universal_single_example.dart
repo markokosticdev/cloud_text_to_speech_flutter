@@ -1,5 +1,4 @@
 import 'package:cloud_text_to_speech/cloud_text_to_speech.dart';
-import 'package:cloud_text_to_speech/src/common/tts/tts_providers.dart';
 
 void main() async {
   try {
@@ -13,7 +12,8 @@ void main() async {
         withLogs: true);
 
     //Generate Audio for a text
-    const text = "Amazon, Microsoft and Google Text-to-Speech API are awesome";
+    final text =
+        '<break time="2s" bre="34"/>Single Universal <some time="3s"/> Text-to-Speech API is awesome';
 
     for (String provider in [
       TtsProviders.amazon,
@@ -22,6 +22,7 @@ void main() async {
     ]) {
       TtsUniversal.setProvider(provider);
 
+      //Get voices
       final voicesResponse = await TtsUniversal.getVoices();
       final voices = voicesResponse.voices;
 
@@ -38,15 +39,16 @@ void main() async {
           voice: voice,
           audioFormat: AudioOutputFormatUniversal.mp3_64k,
           text: text,
-          rate: 'slow', // optional
-          pitch: 'default' // optional
+          rate: 'slow',
+          //optional
+          pitch: 'default' //optional
           );
 
       final ttsResponse = await TtsUniversal.convertTts(ttsParams);
 
       //Get the audio bytes.
       final audioBytes = ttsResponse.audio.buffer
-          .asByteData(); // you can save to a file for playback
+          .asByteData(); //you can save to a file for playback
       print(
           "Audio size: ${(audioBytes.lengthInBytes / (1024 * 1024)).toStringAsPrecision(2)} Mb");
     }

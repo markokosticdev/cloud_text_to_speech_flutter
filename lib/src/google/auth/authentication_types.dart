@@ -8,7 +8,7 @@ abstract class AuthenticationHeaderGoogle extends BaseHeader {
       : super(type: type, value: value);
 }
 
-///Authentication using Ocp-Apim-Subscription-Key header type
+///Authentication using X-goog-api-key header type
 class ApiKeyAuthenticationHeaderGoogle extends AuthenticationHeaderGoogle {
   ApiKeyAuthenticationHeaderGoogle({required String apiKey})
       : super(type: "X-goog-api-key", value: apiKey);

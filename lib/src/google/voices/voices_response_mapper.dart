@@ -24,7 +24,7 @@ class VoicesResponseMapperGoogle extends BaseResponseMapper {
 
           voices = Helpers.removeVoiceDuplicates(voices);
 
-          Helpers.sortVoices(voices);
+          voices = Helpers.sortVoices(voices);
 
           voices =
               Helpers.mapVoiceNames(voices, VoiceNames.male, VoiceNames.female);

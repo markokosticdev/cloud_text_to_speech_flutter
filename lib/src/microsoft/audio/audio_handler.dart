@@ -12,12 +12,12 @@ class AudioHandlerMicrosoft {
   Future<AudioSuccessMicrosoft> getAudio(AudioRequestParamsMicrosoft params,
       AuthenticationHeaderMicrosoft authHeader) async {
     final client = http.Client();
-    final mapper = AudioResponseMapperMicrosoft();
     final audioClient = AudioClientMicrosoft(
         client: client,
         authHeader: authHeader,
         audioTypeHeader:
             AudioTypeHeaderMicrosoft(audioFormat: params.audioFormat));
+    final mapper = AudioResponseMapperMicrosoft();
 
     try {
       final ssml = SsmlMicrosoft(

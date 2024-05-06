@@ -1,8 +1,8 @@
 import 'dart:ui';
 
 import 'package:cloud_text_to_speech/src/common/locale/locale_helpers.dart';
-import 'package:cloud_text_to_speech/src/common/tts/tts_providers.dart';
 import 'package:cloud_text_to_speech/src/common/locale/locale_model.dart';
+import 'package:cloud_text_to_speech/src/common/tts/tts_providers.dart';
 import 'package:cloud_text_to_speech/src/universal/voices/voice_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -16,9 +16,6 @@ class VoiceMicrosoft extends VoiceUniversal {
   List<String> engines;
   @JsonKey(name: "ShortName", includeToJson: false)
   String code;
-  @Deprecated("Use engines instead")
-  @JsonKey(name: "VoiceType", includeToJson: false)
-  String voiceType;
   @JsonKey(name: "DisplayName", includeToJson: false)
   String name;
   @JsonKey(name: "LocalName", includeToJson: false)
@@ -40,7 +37,6 @@ class VoiceMicrosoft extends VoiceUniversal {
       {this.provider = TtsProviders.microsoft,
       required this.engines,
       required this.code,
-      required this.voiceType,
       required this.name,
       required this.nativeName,
       required this.gender,
@@ -53,7 +49,6 @@ class VoiceMicrosoft extends VoiceUniversal {
             provider: provider,
             engines: engines,
             code: code,
-            voiceType: voiceType,
             name: name,
             nativeName: nativeName,
             gender: gender,

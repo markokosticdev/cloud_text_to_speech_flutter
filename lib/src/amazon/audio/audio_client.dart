@@ -1,6 +1,4 @@
 import 'package:cloud_text_to_speech/src/common/http/base_client.dart';
-import 'package:cloud_text_to_speech/src/amazon/audio/audio_type_header.dart';
-import 'package:cloud_text_to_speech/src/amazon/auth/authentication_types.dart';
 import 'package:http/http.dart' as http;
 import 'package:sigv4/sigv4.dart';
 

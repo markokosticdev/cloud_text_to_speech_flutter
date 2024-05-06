@@ -1,8 +1,9 @@
 import 'dart:math';
-import 'dart:ui';
 
 import 'package:cloud_text_to_speech/cloud_text_to_speech.dart';
 import 'package:xml/xml.dart';
+
+import 'log.dart';
 
 class Helpers {
   Helpers._();
@@ -20,10 +21,10 @@ class Helpers {
 
     if (!allowedElements.containsKey('speak')) {
       return rootElement.children
-          .map((child) => child.toXmlString(pretty: true))
+          .map((child) => child.toXmlString(pretty: false))
           .join();
     } else {
-      return document.toXmlString(pretty: true);
+      return document.toXmlString(pretty: false);
     }
   }
 
@@ -32,23 +33,18 @@ class Helpers {
     if (node.nodeType == XmlNodeType.ELEMENT) {
       var element = node as XmlElement;
 
-      // Go through all the children first
       for (var child in List.from(element.children)) {
         _sanitizeNode(child, allowedElements);
       }
 
-      // If the element itself is not allowed, replace it with its children
       if (!allowedElements.containsKey(element.name.local)) {
-        var parent = element.parent;
-        if (parent != null) {
-          int index = parent.children.indexOf(element);
-          parent.children.removeAt(index);
-          List<XmlNode> childrenCopy =
-              element.children.map((node) => node.copy()).toList();
-          parent.children.insertAll(index, childrenCopy);
-        }
+        XmlNode parent = element.parent!;
+        List<XmlNode> children =
+            element.children.map((node) => node.copy()).toList();
+        int elementIndex = parent.children.indexOf(element);
+        parent.children.removeAt(elementIndex);
+        parent.children.insertAll(elementIndex, children);
       } else {
-        // Otherwise, check the attributes
         var allowedAttributes = allowedElements[element.name.local] ?? [];
         for (var attribute in element.attributes.toList()) {
           if (!allowedAttributes.contains(attribute.name.local)) {
@@ -97,11 +93,11 @@ class Helpers {
     List<String> names = [];
     int nameIndex = 0;
 
-    return voices.map((e) {
-      if (locale != e.locale.code || gender != e.gender) {
+    return voices.map((voice) {
+      if (locale != voice.locale.code || gender != voice.gender) {
         nameIndex = 0;
-        locale = e.locale.code;
-        gender = e.gender;
+        locale = voice.locale.code;
+        gender = voice.gender;
         switch (gender.toLowerCase()) {
           case 'male':
             names = shuffleNamesByText(maleVoiceNames, locale);
@@ -118,12 +114,12 @@ class Helpers {
           nameIndex = 0;
         }
 
-        e.name = names[nameIndex];
-        e.nativeName = names[nameIndex];
+        voice.name = names[nameIndex];
+        voice.nativeName = names[nameIndex];
       }
 
       nameIndex++;
-      return e;
+      return voice;
     }).toList(growable: false);
   }
 
@@ -132,16 +128,24 @@ class Helpers {
     Set<String> uniqueCodes = {};
 
     return voices.where((voice) {
-      final isUnique = !uniqueCodes.contains(voice.code);
-      if (isUnique) {
-        uniqueCodes.add(voice.code);
+      if (uniqueCodes.contains(voice.code)) {
+        return false;
       }
-      return isUnique;
+      uniqueCodes.add(voice.code);
+      return true;
     }).toList();
   }
 
-  static void sortVoices<T extends VoiceUniversal>(List<T> voices) {
-    voices.sort((a, b) {
+  static List<T> sortVoices<T extends VoiceUniversal>(List<T> voices) {
+    List<T> validVoices = voices.where((voice) {
+      if (voice.locale.name == null || voice.locale.name!.isEmpty) {
+        Log.d("Invalid voice data, removing from sort: ${voice}");
+        return false;
+      }
+      return true;
+    }).toList();
+
+    validVoices.sort((a, b) {
       int localeComparison = a.locale.name!.compareTo(b.locale.name!);
       if (localeComparison != 0) {
         return localeComparison;
@@ -149,5 +153,7 @@ class Helpers {
         return b.gender.compareTo(a.gender);
       }
     });
+
+    return validVoices;
   }
 }

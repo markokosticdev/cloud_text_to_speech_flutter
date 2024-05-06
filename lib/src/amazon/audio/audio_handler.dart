@@ -4,7 +4,6 @@ import 'package:cloud_text_to_speech/src/amazon/audio/audio_client.dart';
 import 'package:cloud_text_to_speech/src/amazon/audio/audio_request_param.dart';
 import 'package:cloud_text_to_speech/src/amazon/audio/audio_response_mapper.dart';
 import 'package:cloud_text_to_speech/src/amazon/audio/audio_responses.dart';
-import 'package:cloud_text_to_speech/src/amazon/auth/authentication_types.dart';
 import 'package:cloud_text_to_speech/src/amazon/common/constants.dart';
 import 'package:cloud_text_to_speech/src/amazon/ssml/ssml.dart';
 import 'package:http/http.dart' as http;
@@ -12,8 +11,8 @@ import 'package:http/http.dart' as http;
 class AudioHandlerAmazon {
   Future<AudioSuccessAmazon> getAudio(AudioRequestParamsAmazon params) async {
     final client = http.Client();
-    final mapper = AudioResponseMapperAmazon();
     final audioClient = AudioClientAmazon(client: client);
+    final mapper = AudioResponseMapperAmazon();
 
     try {
       final ssml =

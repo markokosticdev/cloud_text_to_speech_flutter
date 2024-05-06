@@ -5,17 +5,14 @@ import 'package:cloud_text_to_speech/src/amazon/voices/voices.dart';
 import 'package:cloud_text_to_speech/src/common/tts/tts_providers.dart';
 import 'package:cloud_text_to_speech/src/common/utils/helpers.dart';
 import 'package:cloud_text_to_speech/src/common/utils/log.dart';
-
-import 'package:cloud_text_to_speech/src/microsoft/audio/audio_responses.dart';
-import 'package:cloud_text_to_speech/src/microsoft/common/init.dart';
-import 'package:cloud_text_to_speech/src/microsoft/tts/tts.dart';
-import 'package:cloud_text_to_speech/src/microsoft/voices/voices.dart';
-
 import 'package:cloud_text_to_speech/src/google/audio/audio_responses.dart';
 import 'package:cloud_text_to_speech/src/google/common/init.dart';
 import 'package:cloud_text_to_speech/src/google/tts/tts.dart';
 import 'package:cloud_text_to_speech/src/google/voices/voices.dart';
-
+import 'package:cloud_text_to_speech/src/microsoft/audio/audio_responses.dart';
+import 'package:cloud_text_to_speech/src/microsoft/common/init.dart';
+import 'package:cloud_text_to_speech/src/microsoft/tts/tts.dart';
+import 'package:cloud_text_to_speech/src/microsoft/voices/voices.dart';
 import 'package:cloud_text_to_speech/src/universal/audio/audio_responses.dart';
 import 'package:cloud_text_to_speech/src/universal/tts/tts_params.dart';
 import 'package:cloud_text_to_speech/src/universal/tts/tts_params_mapper.dart';
