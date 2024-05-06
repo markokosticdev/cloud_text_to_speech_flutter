@@ -21,9 +21,8 @@ Flutter implementation of:
 There are essentially two ways to use Cloud Text-To-Speech:
 
 - Universal: Using TtsUniversal to be able to configure the TTS provider dynamically and us it.
-    - Single: Using TtsProviders.google, TtsProviders.microsoft, TtsProviders.amazon to use the
-      single provider at a time.
-    - Combine: Using TtsProviders.combine to combine all providers and get all voices at once.
+  - Single: Using `TtsProviders.google`, `TtsProviders.microsoft`, `TtsProviders.amazon` to use the single provider at a time.
+  - Combine: Using `TtsProviders.combine` to combine all providers and get all voices at once.
 - Provider: Using TtsGoogle, TtsMicrosoft, TtsAmazon to get the most from provider's API.
 
 ### Universal(Single)
