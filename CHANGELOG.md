@@ -81,3 +81,7 @@
 ## 2.3.1
 
 * Add README.md badges
+
+## 2.3.2
+
+* Remove voice from allowed elements

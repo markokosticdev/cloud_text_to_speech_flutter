@@ -16,11 +16,14 @@ class SsmlAmazon {
   }
 
   String ssmlRoot(String ssml) {
-    return '<speak version="1.0" '
+    String ssmlWithRoot = '<speak version="1.0" '
         'xmlns="http://www.w3.org/2001/10/synthesis">'
         '<prosody rate="$rate" pitch="$pitch">'
         '$ssml'
         '</prosody></speak>';
+
+    return ssmlWithRoot.replaceAll(RegExp(r'\s*\n\s*'), '').replaceAllMapped(
+        RegExp(r'\s*(<[^>]+>)\s*'), (match) => '${match.group(1)}');
   }
 
   String sanitizeSsml(String ssml) {

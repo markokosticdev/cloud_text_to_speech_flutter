@@ -23,9 +23,8 @@ class SsmlGoogle {
         '</prosody>'
         '</speak>';
 
-    return ssmlWithRoot
-        .replaceAll(RegExp(r'\s*\n\s*'), '')
-        .replaceAll(RegExp(r'\s*(<[^>]+>)\s*'), '\$1');
+    return ssmlWithRoot.replaceAll(RegExp(r'\s*\n\s*'), '').replaceAllMapped(
+        RegExp(r'\s*(<[^>]+>)\s*'), (match) => '${match.group(1)}');
   }
 
   String sanitizeSsml(String ssml) {
@@ -66,7 +65,6 @@ class SsmlGoogle {
       ],
       'seq': [],
       'sub': ['alias'],
-      'voice': ['name', 'gender', 'variant', 'language', 'ordering'],
     };
 
     return Helpers.sanitizeSsml(ssml, allowedElements);

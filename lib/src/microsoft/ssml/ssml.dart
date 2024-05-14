@@ -22,7 +22,7 @@ class SsmlMicrosoft {
   }
 
   String ssmlRoot(String ssml) {
-    return '<speak version="1.0" '
+    String ssmlWithRoot = '<speak version="1.0" '
         'xmlns="http://www.w3.org/2001/10/synthesis" '
         'xml:lang="${voice.locale.code}">'
         '<voice xml:lang="${voice.locale.code}" '
@@ -31,6 +31,9 @@ class SsmlMicrosoft {
         '<prosody rate="$rate" pitch="$pitch">'
         '$ssml'
         '</prosody></voice></speak>';
+
+    return ssmlWithRoot.replaceAll(RegExp(r'\s*\n\s*'), '').replaceAllMapped(
+        RegExp(r'\s*(<[^>]+>)\s*'), (match) => '${match.group(1)}');
   }
 
   String sanitizeSsml(String ssml) {
@@ -51,7 +54,6 @@ class SsmlMicrosoft {
       's': [],
       'say-as': ['interpret-as', 'format', 'detail'],
       'sub': ['alias'],
-      'voice': ['name', 'effect'],
     };
 
     return Helpers.sanitizeSsml(ssml, allowedElements);

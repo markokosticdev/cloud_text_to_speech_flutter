@@ -1,6 +1,6 @@
 name: cloud_text_to_speech
 description: Single interface to Google, Microsoft and Amazon Text-To-Speech.
-version: 2.3.1
+version: 2.3.2
 repository: https://github.com/markokosticdev/cloud_text_to_speech_flutter
 
 environment:
