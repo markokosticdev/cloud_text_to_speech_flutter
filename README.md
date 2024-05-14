@@ -1,10 +1,10 @@
 # Cloud Text-To-Speech
 
-![Pub Version](https://img.shields.io/pub/v/cloud_text_to_speech.svg?logo=dart)
-![Pub Likes](https://img.shields.io/pub/likes/cloud_text_to_speech.svg?logo=dart)
-![Pub Popularity](https://img.shields.io/pub/popularity/cloud_text_to_speech.svg?logo=dart)
-![Pub Points](https://img.shields.io/pub/points/cloud_text_to_speech.svg?logo=dart)
-![GitHub](https://img.shields.io/github/license/markokosticdev/cloud_text_to_speech_flutter.svg?logo=github)
+[![Pub Version](https://img.shields.io/pub/v/cloud_text_to_speech.svg?logo=dart)](https://pub.dev/packages/cloud_text_to_speech)
+[![Pub Likes](https://img.shields.io/pub/likes/cloud_text_to_speech.svg?logo=dart)](https://pub.dev/packages/cloud_text_to_speech)
+[![Pub Popularity](https://img.shields.io/pub/popularity/cloud_text_to_speech.svg?logo=dart)](https://pub.dev/packages/cloud_text_to_speech)
+[![Pub Points](https://img.shields.io/pub/points/cloud_text_to_speech.svg?logo=dart)](https://pub.dev/packages/cloud_text_to_speech)
+[![GitHub License](https://img.shields.io/github/license/markokosticdev/cloud_text_to_speech_flutter.svg?logo=github)](https://github.com/markokosticdev/cloud_text_to_speech_flutter?tab=BSD-2-Clause-1-ov-file)
 [![GitHub Sponsor](https://img.shields.io/badge/GitHub%20Sponsor-donate-yellow.svg?logo=github)](https://github.com/sponsors/markokosticdev)
 [![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-donate-yellow.svg?logo=buy-me-a-coffee)](https://www.buymeacoffee.com/markokostich)
 
