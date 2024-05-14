@@ -77,3 +77,7 @@
 
 * Refactor code
 * Update helpers
+
+## 2.3.1
+
+* Add README.md badges
