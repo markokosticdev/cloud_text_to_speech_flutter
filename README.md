@@ -24,14 +24,24 @@ Flutter implementation of:
 - Fake name generation for Google voices that are generated randomly based on voice locale.
 - Accessible configurable output format (per provider), rate, and pitch.
 
+## Feature Requests
+
+We welcome and value your ideas and suggestions to improve this project! To submit and vote for feature requests, please visit our [Feature Requests Board](https://cloud-text-to-speech.featureupvote.com).
+
+On the board, you can:
+- **Submit new feature requests**: Share your ideas on how we can enhance the project.
+- **Vote on existing requests**: Help prioritize the most popular features by voting for the ones you find most valuable.
+
+Thank you for contributing to the development and improvement of Cloud Text-To-Speech!
+
 ## Getting Started
 
 There are essentially two ways to use Cloud Text-To-Speech:
 
-- Universal: Using TtsUniversal to be able to configure the TTS provider dynamically and us it.
-  - Single: Using `TtsProviders.google`, `TtsProviders.microsoft`, `TtsProviders.amazon` to use the single provider at a time.
-  - Combine: Using `TtsProviders.combine` to combine all providers and get all voices at once.
-- Provider: Using TtsGoogle, TtsMicrosoft, TtsAmazon to get the most from provider's API.
+- **Universal**: Using TtsUniversal to be able to configure the TTS provider dynamically and us it.
+    - **Single**: Using `TtsProviders.google`, `TtsProviders.microsoft`, `TtsProviders.amazon` to use the single provider at a time.
+    - **Combine**: Using `TtsProviders.combine` to combine all providers and get all voices at once.
+- **Provider**: Using TtsGoogle, TtsMicrosoft, TtsAmazon to get the most from provider's API.
 
 ### Universal(Single)
 
