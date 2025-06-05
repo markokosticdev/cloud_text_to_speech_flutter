@@ -23,7 +23,7 @@ class AudioHandlerAmazon {
         'Text': ssml.sanitizedSsml,
         'TextType': 'ssml',
         'VoiceId': params.voice.code,
-        // 'Engine': params.voice.engines
+        'Engine': params.voice.engines.first
       };
 
       final String bodyJson = jsonEncode(body);
