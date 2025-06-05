@@ -17,11 +17,13 @@ class AudioHandlerAmazon {
     try {
       final ssml =
           SsmlAmazon(text: params.text, rate: params.rate, pitch: params.pitch);
+      print('Inisde = ${params.voice.isSsml}');
 
       final Map<String, dynamic> body = {
         'OutputFormat': params.audioFormat,
-        'Text': params.voice.isSsml?ssml.sanitizedSsml:params.text,
-        'TextType':params.voice.isSsml? 'ssml':'text',
+        'Text': params.voice.isSsml=='ssml'?ssml.sanitizedSsml:params.text,
+        // 'TextType':params.voice.isSsml? 'ssml':'text',
+        'TextType':params.voice.isSsml,
         'VoiceId': params.voice.code,
         'Engine': params.voice.engines.first
       };
