@@ -20,8 +20,8 @@ class AudioHandlerAmazon {
 
       final Map<String, dynamic> body = {
         'OutputFormat': params.audioFormat,
-        'Text': ssml.sanitizedSsml,
-        'TextType': 'ssml',
+        'Text': params.voice.isSsml?ssml.sanitizedSsml:params.text,
+        'TextType':params.voice.isSsml? 'ssml':'text',
         'VoiceId': params.voice.code,
         'Engine': params.voice.engines.first
       };
