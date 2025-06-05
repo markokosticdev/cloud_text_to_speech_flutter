@@ -25,6 +25,7 @@ class VoiceAmazon extends VoiceUniversal {
   @JsonKey(name: "LanguageCode", fromJson: _toLocale, includeToJson: false)
   VoiceLocale locale;
 
+
   VoiceAmazon(
       {this.provider = TtsProviders.amazon,
       required this.engines,
@@ -32,7 +33,9 @@ class VoiceAmazon extends VoiceUniversal {
       required this.name,
       required this.nativeName,
       required this.gender,
-      required this.locale})
+      required this.locale,
+        String isSsml = 'ssml', // ✅ Add this
+      })
       : super(
             provider: provider,
             engines: engines,
@@ -40,7 +43,9 @@ class VoiceAmazon extends VoiceUniversal {
             name: name,
             nativeName: nativeName,
             gender: gender,
-            locale: locale);
+            locale: locale,
+    isSsml: isSsml, // ✅ Pass to base
+  );
 
   factory VoiceAmazon.fromJson(Map<String, dynamic> json) =>
       _$VoiceAmazonFromJson(json);
