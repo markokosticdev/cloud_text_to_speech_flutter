@@ -27,6 +27,7 @@ class AudioHandlerAmazon {
       };
 
       final String bodyJson = jsonEncode(body);
+      print('api = ${EndpointsAmazon.tts} body = ${jsonEncode(body)}');
 
       final response = await audioClient.post(Uri.parse(EndpointsAmazon.tts),
           body: bodyJson);
