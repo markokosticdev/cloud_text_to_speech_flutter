@@ -9,17 +9,9 @@ class VoiceUniversal {
   String gender;
   VoiceLocale locale;
 
-  VoiceUniversal({
-    required this.provider,
-    required this.engines,
-    required this.code,
-    required this.name,
-    required this.nativeName,
-    required this.gender,
-    required this.locale,
-  });
+  bool isSsml;
 
-    VoiceUniversal copyWith({
+  VoiceUniversal copyWith({
     String? provider,
     List<String>? engines,
     String? code,
@@ -27,6 +19,7 @@ class VoiceUniversal {
     String? nativeName,
     String? gender,
     VoiceLocale? locale,
+    bool isSsml=true,
   }) {
     return VoiceUniversal(
       provider: provider ?? this.provider,
@@ -36,7 +29,18 @@ class VoiceUniversal {
       nativeName: nativeName ?? this.nativeName,
       gender: gender ?? this.gender,
       locale: locale ?? this.locale,
+        isSsml: isSsml??true,
     );
   }
-  
+
+  VoiceUniversal({
+    required this.provider,
+    required this.engines,
+    required this.code,
+    required this.name,
+    required this.nativeName,
+    required this.gender,
+    required this.locale,
+    this.isSsml=true,
+  });
 }
