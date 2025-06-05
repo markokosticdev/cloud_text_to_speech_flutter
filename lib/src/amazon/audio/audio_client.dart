@@ -9,6 +9,16 @@ class AudioClientAmazon extends BaseClient {
 
   @override
   Future<http.StreamedResponse> send(http.BaseRequest request) {
+    // Log initial request values
+    print('--- Amazon Polly Request ---');
+    print('URL: ${request.url}');
+    print('Method: ${request.method}');
+    print('Initial Headers: ${request.headers}');
+    print('Query Parameters: ${request.url.queryParameters}');
+    if (request is http.Request) {
+      print('Request Body: ${request.body}');
+    }
+
     request.headers['Content-Type'] = "application/json";
 
     final sigv4Client = Sigv4Client(
@@ -18,6 +28,8 @@ class AudioClientAmazon extends BaseClient {
       serviceName: 'polly',
     );
 
+    print('Region = ${ConfigAmazon.region}');
+
     final headers = sigv4Client.signedHeaders(
       request.url.toString(),
       method: request.method,
@@ -26,8 +38,15 @@ class AudioClientAmazon extends BaseClient {
       body: request is http.Request ? request.body : null,
     );
 
+    // Log signed headers
+    print('Signed Headers: $headers');
+
     request.headers.addAll(headers);
+
+    print('Final Headers After Merge: ${request.headers}');
+    print('------------------------------');
 
     return client.send(request);
   }
+
 }
