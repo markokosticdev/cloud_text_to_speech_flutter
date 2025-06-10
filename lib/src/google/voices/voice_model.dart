@@ -51,9 +51,13 @@ class VoiceGoogle extends VoiceUniversal {
   factory VoiceGoogle.fromJson(Map<String, dynamic> json) =>
       _$VoiceGoogleFromJson(json);
 
-  static List<String> _toEngines(String name) {
-    List<String> nameSegments = name.split('-');
-    return [nameSegments[2].toLowerCase()];
+   static List<String> _toEngines(String name) {
+    if (name.contains('-')) {
+      List<String> nameSegments = name.split('-');
+      return [nameSegments[2].toLowerCase()];
+    } else {
+      return [name.toLowerCase()];
+    }
   }
 
   static String _toGender(String ssmlGender) {
