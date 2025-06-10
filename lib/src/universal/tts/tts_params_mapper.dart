@@ -46,6 +46,7 @@ class TtsParamsMapper {
 
   static TtsParamsAmazon toAmazon(TtsParamsUniversal universalParams) {
     return TtsParamsAmazon(
+
       voice: VoiceAmazon(
         engines: universalParams.voice.engines,
         code: universalParams.voice.code,
@@ -53,6 +54,7 @@ class TtsParamsMapper {
         nativeName: universalParams.voice.nativeName,
         gender: universalParams.voice.gender,
         locale: universalParams.voice.locale,
+        isSsml: universalParams.voice.isSsml, // ✅ Add this
       ),
       text: universalParams.text,
       audioFormat:

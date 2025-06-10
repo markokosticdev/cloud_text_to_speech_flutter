@@ -17,16 +17,19 @@ class AudioHandlerAmazon {
     try {
       final ssml =
           SsmlAmazon(text: params.text, rate: params.rate, pitch: params.pitch);
+      print('Inisde = ${params.voice.isSsml}');
 
       final Map<String, dynamic> body = {
         'OutputFormat': params.audioFormat,
-        'Text': ssml.sanitizedSsml,
-        'TextType': 'ssml',
+        'Text': params.voice.isSsml=='ssml'?ssml.sanitizedSsml:params.text,
+        // 'TextType':params.voice.isSsml? 'ssml':'text',
+        'TextType':params.voice.isSsml,
         'VoiceId': params.voice.code,
-        // 'Engine': params.voice.engines
+        'Engine': params.voice.engines.first
       };
 
       final String bodyJson = jsonEncode(body);
+      print('api = ${EndpointsAmazon.tts} body = ${jsonEncode(body)}');
 
       final response = await audioClient.post(Uri.parse(EndpointsAmazon.tts),
           body: bodyJson);
